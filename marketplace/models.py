@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 
-class Category(model.Models):
+class Category(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
