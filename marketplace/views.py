@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import SalesAd
+from django.http import HttpResponse
 
 
 class SalesAdList(generic.ListView):

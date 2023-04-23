@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from marketplace.views import SalesAdList
 
 urlpatterns = [
+    path('', SalesAdList.as_view(), name='index'),
     path('admin/', admin.site.urls),
 ]

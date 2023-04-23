@@ -1,7 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="px-6 py-6">
-    <h1>Landing page</h1>
+
+<div class="row" id="hero">
+    <div class="col"></div>
 </div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="row">
+                {% for ad in salesad_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="image-container">
+                                {% if "placeholder" in salesad.item_image.url %}
+                                <img class="card-img-top"
+                                    src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
+                                {% else %}
+                                <img class="card-img-top" src=" {{ salesad.item_image.url }}">
+                                {% endif %}
+                                <div class="image-flash">
+                                    <p class="author">Author: {{ salesad.author }}</p>
+                                </div>
+                            </div>
+                            <a href="#" class="post-link">
+                                <h2 class="card-title">{{ salesad.title }}</h2>
+                                <p class="card-text">{{ salesad.description }}</p>
+                            </a>
+                            <hr />
+                            <p class="card-text text-muted h6">{{ salesad.created_on}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">
+                {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
