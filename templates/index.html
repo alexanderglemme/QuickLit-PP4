@@ -2,11 +2,17 @@
 
 {% block content %}
 
-<div class="row" id="hero">
-    <div class="col"></div>
+<div class="containter-fluid no-gutter text-center" id="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col h-100 text-center rounded" id="hero-text">
+                    <h1 class="">Welcome to <i style="font-family: Jomolhari;">QuickLit</i> - Your second hand marketplace for student literature</h1>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="container-fluid text-center">
+<div class="container-fluid text-center mt-5">
     <div class="row">
         <div class="col-md">
             <h1>Newest items</h1>
@@ -20,23 +26,24 @@
             <div class="row">
                 {% for ad in salesad_list %}
                 <div class="col-md-3">
-                    <div class="card mb-4">
+                    <div class="card mb-4 shadow">
                         <div class="card-body">
                             <div class="image-container">
                                 {% if "placeholder" in ad.item_image.url %}
-                                <img class="card-img-top"
+                                <img  class="d-block w-100 card-img-top index-image" alt="..." style="height: 170px;"
                                     src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
                                 {% else %}
-                                <img class="card-img-top" src=" {{ salesad.item_image.url }}">
+                                <img  class="d-block w-100 card-img-top index-image" alt="..." style="height: 170px;" src=" {{ salesad.item_image.url }}">
                                 {% endif %}
-                                <div class="image-flash">
-                                    <p class="author">Author: {{ ad.author }}</p>
-                                </div>
                             </div>
                             <a href="#" class="post-link">
-                                <h2 class="card-title">{{ ad.title }}</h2>  
+                                <h3 class="card-title justify-content-around p-4" style="height: 10rem;">{{ ad.title }}</h2>  
                             </a>
+                            <p class="card-text">Author: {{ ad.author }}</p>
                             <p class="card-text">Price: {{ ad.price }} SEK</p>
+                            <a href="#">
+                            <button type="button" class="btn btn-primary btn-sm">Contact Seller</button>
+                            </a>
                             <hr />
                             <p class="card-text text-muted h6">Seller: {{ ad.seller }}</p>
                             <p class="card-text text-muted h6">Posted: {{ ad.created_on }}</p>
@@ -44,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                {% if forloop.counter|divisibleby:3 %}
+                {% if forloop.counter == 4 %}
             </div>
             <div class="row">
                 {% endif %}

@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Jomolhari&family=Montserrat:wght@300;400;600;700&display=swap');
 
 body {
-    margin: 0%;
+    margin: 0px;
+    padding: 0px;
     font-family: Montserrat;
 }
 
@@ -15,4 +16,25 @@ footer {
 
 .bg-ql-blue {
     background-color: #0088ff;
+}
+
+#hero {
+    background-image: url(https://res.cloudinary.com/dvwfilwf6/image/upload/v1682328999/aleksei-ieshkin-A6obuTm7_z0-unsplash_xeh2us.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 30rem;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+}
+
+#hero-text {
+    margin-top: 13rem;
+    color: #fff;
+    background-color: rgba(0,136,255, 0.7);
+}
+
+#hero-text>h1 {
+    font-size: 2rem;
+    
 }

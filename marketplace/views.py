@@ -12,3 +12,18 @@ class SalesAdList(generic.ListView):
     queryset = SalesAd.objects.filter(sold=False).order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 6
+
+
+class SlesAdDetail(View):
+
+    def get(self, request, slug, *args, **kwargs):
+        """
+        Get method for retrieving a particular record
+        """
+        queryset = SalesAd.objects.filter(sold=False)
+        sales_ad = get_object_or_404(queryset, slug=slug)
+        template_name = 'sales_ad_single.html'
+        context = {
+            'salesad': salesad
+        }
+        return render(request, template_name, context)
