@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Jomolhari&family=Montserrat:wght@300;400;600;700&display=swap');
+
+body {
+    margin: 0%;
+    font-family: Montserrat;
+}
+
+footer {
+    background-color: #dfdfdf;
+}
+
+.ql-blue {
+    color: #0088ff;
+}
+
+.bg-ql-blue {
+    background-color: #0088ff;
+}

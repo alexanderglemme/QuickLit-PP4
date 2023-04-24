@@ -6,31 +6,41 @@
     <div class="col"></div>
 </div>
 
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="col-md">
+            <h1>Newest items</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 mt-4">
             <div class="row">
                 {% for ad in salesad_list %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="image-container">
-                                {% if "placeholder" in salesad.item_image.url %}
+                                {% if "placeholder" in ad.item_image.url %}
                                 <img class="card-img-top"
                                     src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
                                 {% else %}
                                 <img class="card-img-top" src=" {{ salesad.item_image.url }}">
                                 {% endif %}
                                 <div class="image-flash">
-                                    <p class="author">Author: {{ salesad.author }}</p>
+                                    <p class="author">Author: {{ ad.author }}</p>
                                 </div>
                             </div>
                             <a href="#" class="post-link">
-                                <h2 class="card-title">{{ salesad.title }}</h2>
-                                <p class="card-text">{{ salesad.description }}</p>
+                                <h2 class="card-title">{{ ad.title }}</h2>  
                             </a>
+                            <p class="card-text">Price: {{ ad.price }} SEK</p>
                             <hr />
-                            <p class="card-text text-muted h6">{{ salesad.created_on}}</p>
+                            <p class="card-text text-muted h6">Seller: {{ ad.seller }}</p>
+                            <p class="card-text text-muted h6">Posted: {{ ad.created_on }}</p>
+                            <p class="card-text text-muted h6">Location: {{ ad.city }}</p>
                         </div>
                     </div>
                 </div>
@@ -43,5 +53,5 @@
             </div>
         </div>
     </div>
-
+</div>
 {% endblock %}

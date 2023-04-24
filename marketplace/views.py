@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from django.views import generic
+from django.shortcuts import render, get_object_or_404
+from django.views import generic, View
+from django.views.generic.base import TemplateView
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.db.models import Q
 from .models import SalesAd
-from django.http import HttpResponse
 
 
 class SalesAdList(generic.ListView):
