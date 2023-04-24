@@ -18,6 +18,11 @@ footer {
     background-color: #0088ff;
 }
 
+.detail-img {
+    height: auto;
+    width: auto;
+}
+
 #hero {
     background-image: url(https://res.cloudinary.com/dvwfilwf6/image/upload/v1682328999/aleksei-ieshkin-A6obuTm7_z0-unsplash_xeh2us.jpg);
     background-position: center;

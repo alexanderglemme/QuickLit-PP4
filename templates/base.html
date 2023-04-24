@@ -21,14 +21,14 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-ql-blue p-4">
         <div class="container-fluid">
-          <a class="navbar-brand" style="font-family: Jomolhari; color: #fff;" href="#">QuickLit</a>
+          <a class="navbar-brand" style="font-family: Jomolhari; color: #fff;" href="{% url 'index' %}">QuickLit</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
@@ -48,8 +48,11 @@
                 <a class="nav-link disabled">Disabled</a>
               </li>
             </ul>
-              <button class="btn btn-secondary mx-2" type="submit">Log In</button>
+            <a href="{% url 'signup' %}">
               <button class="btn btn-success" type="submit">Sign Up</button>
+            </a>
+              <button class="btn btn-secondary mx-2" type="submit">Log In</button>
+              
           </div>
         </div>
       </nav>

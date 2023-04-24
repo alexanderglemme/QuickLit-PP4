@@ -36,7 +36,7 @@
                                 <img  class="d-block w-100 card-img-top index-image" alt="..." style="height: 170px;" src=" {{ salesad.item_image.url }}">
                                 {% endif %}
                             </div>
-                            <a href="#" class="post-link">
+                            <a href=" {% url 'detail' ad.slug %}" class="post-link">
                                 <h3 class="card-title justify-content-around p-4" style="height: 10rem;">{{ ad.title }}</h2>  
                             </a>
                             <p class="card-text">Author: {{ ad.author }}</p>

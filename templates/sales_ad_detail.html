@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ salesad.title }}{% endblock %}
+{% block title %}{{ ad.title }}{% endblock %}
 
 {% block content %}
-
-
+<div class="container-fluid no-gutter">
+    <div class="row my-5 justify-content-center">
+        <div class="col-md-4 ">
+            {% if "placeholder" in ad.item_image.url %}
+            <img class="detail-img rounded" src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
+            {% else %}
+            <img class="detail-img rounded" src=" {{ ad.item_image.url }}">
+            {% endif %}
+        </div>
+        <div class="col-md-4 text-left">
+            <h1>{{ ad.title }}</h1>
+            <h2>By {{ ad.author }}</h2>
+            <h3>{{ ad.price }} SEK</h3>
+            <hr>
+            <p>{{ ad.description }}</p>
+            <p>Posted by: {{ ad.seller }}, {{ ad.created_on }} <br>Location: {{ ad.city }}</p>
+            <a href="#">
+                <button type="button" class="btn btn-primary">Contact Seller</button>
+            </a>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

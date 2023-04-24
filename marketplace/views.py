@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
+from django.views.generic import CreateView
 from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from .models import SalesAd
+from .forms import SignUpForm
 
 
 class SalesAdList(generic.ListView):
@@ -14,16 +16,22 @@ class SalesAdList(generic.ListView):
     paginate_by = 6
 
 
-class SlesAdDetail(View):
+class SalesAdDetail(View):
 
     def get(self, request, slug, *args, **kwargs):
         """
-        Get method for retrieving a particular record
+        Gets a single ad
         """
-        queryset = SalesAd.objects.filter(sold=False)
+        queryset = SalesAd.objects.filter(sold=False).order_by('-created_on')
         sales_ad = get_object_or_404(queryset, slug=slug)
-        template_name = 'sales_ad_single.html'
+        template_name = 'sales_ad_detail.html'
         context = {
-            'salesad': salesad
+            'ad': sales_ad
         }
         return render(request, template_name, context)
+
+
+class SignUpView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'
