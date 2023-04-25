@@ -19,9 +19,9 @@
     <link rel="icon" type="image/x-icon" href=" {% static 'favicon/favicon.ico' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-ql-blue p-4">
+    <nav class="navbar navbar-expand-lg bg-ql-blue p-4 shadow">
         <div class="container-fluid">
-          <a class="navbar-brand" style="font-family: Jomolhari; color: #fff;" href="{% url 'index' %}">QuickLit</a>
+          <a class="navbar-brand" style="font-family: Jomolhari; color: #fff; font-size: x-large;" href="{% url 'index' %}">QuickLit</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -48,11 +48,21 @@
                 <a class="nav-link disabled">Disabled</a>
               </li>
             </ul>
+            {% if request.user.is_authenticated %}
+            <a href="#">
+              <button class="btn btn-success" type="submit">Inbox</button>
+            </a>
+            <a href="#">
+              <button class="btn btn-secondary mx-2" type="submit">Profile Overview</button>
+            </a>
+            {% else %}
             <a href="{% url 'signup' %}">
               <button class="btn btn-success" type="submit">Sign Up</button>
             </a>
+            <a href="{% url 'login' %}">
               <button class="btn btn-secondary mx-2" type="submit">Log In</button>
-              
+            </a>
+            {% endif %}
           </div>
         </div>
       </nav>
@@ -61,13 +71,13 @@
 
     {% endblock %}
     </main>
-    <footer class="container-fluid mt-auto mb-0 p-4 text-center">
+    <footer class="container-fluid mt-auto mb-0 p-4 text-center shadow-lg">
       <div class="row">
           <div class="col-4">
-              <p><i class="fa-regular fa-copyright"></i> Copyright 2023</p>
+              <p><i class="fa-regular fa-copyright"></i>QuickLit</p>
           </div>
           <div class="col-4 footer-element">
-              <p>QuickLit</p>
+              <p>Copyright 2023 - All rights reserved - Alexander Glemme</p>
           </div>
           <div class="col-4 footer-element">
               <a href="https://www.facebook.com/" target="_blank" aria-label="Opens Facebook in a new tab"><i class="fa-brands fa-facebook footer-icon"></i></a>
