@@ -32,4 +32,4 @@ class SignUpForm(UserCreationForm):
 class NewAdForm(forms.ModelForm):
     class Meta:
         model = SalesAd
-        fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'location')
+        fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'city')

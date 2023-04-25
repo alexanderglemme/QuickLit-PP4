@@ -5,8 +5,10 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+
 from .models import SalesAd
-from .forms import SignUpForm
+from .forms import SignUpForm, NewAdForm
 
 
 class SalesAdList(generic.ListView):
@@ -36,3 +38,13 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
+
+class NewAdView(CreateView):
+    model = SalesAd
+    form_class = NewAdForm
+    template_name = 'new_sales_ad.html'
+    success_url = reverse_lazy('newad')
+
+    def form_valid(self, form):
+        form.instance.seller = self.request.user
+        return super().form_valid(form)
