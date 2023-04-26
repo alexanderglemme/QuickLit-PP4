@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Delete Sales Ad?</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this sales ad?</p>
+    <h3>{{ object.title }}</h3>
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a href="{% url 'profile' %}" class="btn btn-primary">Cancel</a>
+  </form>
+{% endblock %}

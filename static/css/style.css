@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Jomolhari&family=Montserrat:wght@300;400;600;700&display=swap');
 
+.example::-webkit-scrollbar {
+    display: none;
+  }
+
+.example {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
 body {
     margin: 0px;
     padding: 0px;
