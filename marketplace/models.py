@@ -17,6 +17,9 @@ class Category(models.Model):
 
 
 class SalesAd(models.Model):
+    """
+    Model for the post or item that the user wants to advertise
+    """
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sales_ad')
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
@@ -44,6 +47,9 @@ class SalesAd(models.Model):
 
 
 class DirectMessage(models.Model):
+    """
+    A model for sending DMs back and fourth
+    """
     sender = models.ForeignKey(User, related_name='sender', on_delete=models.CASCADE)
     recipient = models.ForeignKey(User, related_name='recipient', on_delete=models.CASCADE)
     content = models.TextField()
