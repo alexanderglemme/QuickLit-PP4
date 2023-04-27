@@ -10,7 +10,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import SalesAd, User
+from .models import SalesAd, User, DirectMessage
 from .forms import SignUpForm, NewAdForm, SalesAdForm, MessageForm
 
 
@@ -89,6 +89,7 @@ class EditSalesAdView(View):
     def post(self, request, slug):
         sales_ad = get_object_or_404(SalesAd, slug=slug, seller=request.user)
         form = SalesAdForm(request.POST, request.FILES, instance=sales_ad)
+
         if form.is_valid():
             form.save()
 
@@ -120,6 +121,7 @@ class DeleteView(LoginRequiredMixin, DeleteView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
+
         if not obj.seller == self.request.user:
             raise Http404
         return obj
@@ -132,9 +134,36 @@ class DeleteView(LoginRequiredMixin, DeleteView):
 class ChatView(LoginRequiredMixin, SingleObjectMixin, FormMixin, TemplateView):
     model = User
     template_name = 'chat.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('chat')
     form_class = MessageForm
 
-    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object(queryset=User.objects.all())
+        return super().get(request, *args, **kwargs)
 
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        self.object = self.get_object(queryset=User.objects.all())
 
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        sender = self.request.user
+        recipient = self.object
+        context['recipient'] = recipient
+        context['sender'] = sender
+        context['messages'] = DirectMessage.objects.filter(sender=sender, recipient=recipient) | DirectMessage.objects.filter(sender=recipient, recipient=sender)
+        context['form'] = self.get_form()
+        return context
+
+        def form_valid(self, form):
+            recipient = self.object
+            sender = self.request.user
+            content = form.cleaned_data.get('content')
+            message = DirectMessage.objects.create(sender=sender, recipient=recipient, content=content)
+            message.save()
+            return HttpResponseRedirect(self.get_success_url())
