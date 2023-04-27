@@ -1,7 +1,7 @@
 # QuickLit - User-to-User Marketplace for Student Literature
 QuickLit is a Django-based web application that allows students to buy and sell used textbooks and other literature materials directly with each other. The application offers full CRUD functionality and user authentication to ensure secure access.
 
-[Deplyed project](https://www.google.com)
+[Deplyed project](https://quicklit-pp4.herokuapp.com/)
 
 # User Stories
 As a student, I want to search for specific textbooks or literature materials I need for my classes.
