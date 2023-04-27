@@ -5,11 +5,13 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required
+
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import SalesAd, User
-from .forms import SignUpForm, NewAdForm, SalesAdForm
+from .forms import SignUpForm, NewAdForm, SalesAdForm, MessageForm
 
 
 class SearchAdsView(View):
@@ -109,7 +111,8 @@ class ProfileOverviewView(LoginRequiredMixin, ListView):
 class DeleteView(LoginRequiredMixin, DeleteView):
     """
     Deletes a chosen SalesAd if the user is logged in,
-    only the logged in users ads are reachable.
+    only the logged in users ads are reachable 
+    and if the seller is not the user raises 404.
     """
     model = SalesAd
     template_name = 'delete_ad.html'
@@ -124,3 +127,14 @@ class DeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
 
         return super().delete(request, *args, **kwargs)
+
+
+class ChatView(LoginRequiredMixin, SingleObjectMixin, FormMixin, TemplateView):
+    model = User
+    template_name = 'chat.html'
+    success_url = reverse_lazy('profile')
+    form_class = MessageForm
+
+    
+
+
