@@ -33,3 +33,9 @@ class NewAdForm(forms.ModelForm):
     class Meta:
         model = SalesAd
         fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'city')
+
+class SalesAdForm(forms.ModelForm):
+    class Meta:
+        model = SalesAd
+        fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'city', 'sold')
+

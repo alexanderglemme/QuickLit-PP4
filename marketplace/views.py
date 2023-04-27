@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.views.generic import CreateView, ListView, DeleteView
 from django.views.generic.base import TemplateView
@@ -9,7 +9,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import SalesAd, User
-from .forms import SignUpForm, NewAdForm
+from .forms import SignUpForm, NewAdForm, SalesAdForm
+
+
+class SearchAdsView(View):
+    def get(self, request):
+        query = request.GET.get('query', '').replace('+', '-')
+        ads = SalesAd.objects.filter(sold=False)
+
+        if query:
+            ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query) | Q(category__icontains=query) | Q(seller__icontains=query) | Q(author__icontains=query))
+
+        return render(request, 'search_ads.html', {
+            'ads': ads,
+            'query': query,
+        })
 
 
 class SalesAdList(generic.ListView):
@@ -40,7 +54,7 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
 
 
-class NewAdView(CreateView):
+class NewAdView(LoginRequiredMixin, CreateView):
     model = SalesAd
     form_class = NewAdForm
     template_name = 'new_sales_ad.html'
@@ -49,6 +63,22 @@ class NewAdView(CreateView):
     def form_valid(self, form):
         form.instance.seller = self.request.user
         return super().form_valid(form)
+
+
+class EditSalesAdView(View):
+    def get(self, request, slug):
+        sales_ad = get_object_or_404(SalesAd, slug=slug, seller=request.user)
+        form = SalesAdForm(instance=sales_ad)
+        return render(request, 'edit_sales_ad.html', {'form': form})
+
+    def post(self, request, slug):
+        sales_ad = get_object_or_404(SalesAd, slug=slug, seller=request.user)
+        form = SalesAdForm(request.POST, request.FILES, instance=sales_ad)
+        if form.is_valid():
+            form.save()
+
+            return redirect('detail', slug=slug)
+        return render(request, 'edit_sales_ad.html', {'form': form})
 
 
 class ProfileOverviewView(LoginRequiredMixin, ListView):
