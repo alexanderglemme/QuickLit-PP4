@@ -41,3 +41,10 @@ class SalesAd(models.Model):
             self.slug = slugify(self.title + "-" + str(self.created_on))
 
         return super().save(*args, **kwargs)
+
+
+class DirectMessage(models.Model):
+    sender = models.ForeignKey(User, related_name='sender', on_delete=models.CASCADE)
+    recipient = models.ForeignKey(User, related_name='recipient', on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

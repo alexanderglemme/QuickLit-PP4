@@ -13,6 +13,9 @@ from .forms import SignUpForm, NewAdForm, SalesAdForm
 
 
 class SearchAdsView(View):
+    """
+    Searches sales ads, and displays them based on the query
+    """
     def get(self, request):
         query = request.GET.get('query', '').replace('+', '-')
         ads = SalesAd.objects.filter(sold=False)
@@ -27,6 +30,9 @@ class SearchAdsView(View):
 
 
 class SalesAdList(generic.ListView):
+    """
+    Gets all sales ads and displays them in order of newest-oldest.
+    """
     model = SalesAd
     queryset = SalesAd.objects.filter(sold=False).order_by('-created_on')
     template_name = 'index.html'
@@ -55,6 +61,9 @@ class SignUpView(CreateView):
 
 
 class NewAdView(LoginRequiredMixin, CreateView):
+    """
+    Adds a new sales ad
+    """
     model = SalesAd
     form_class = NewAdForm
     template_name = 'new_sales_ad.html'
@@ -66,6 +75,10 @@ class NewAdView(LoginRequiredMixin, CreateView):
 
 
 class EditSalesAdView(View):
+    """
+    Gets the given sales ad then posts the new instance
+    of a the SalesAd entry if the user is the seller
+    """
     def get(self, request, slug):
         sales_ad = get_object_or_404(SalesAd, slug=slug, seller=request.user)
         form = SalesAdForm(instance=sales_ad)
@@ -82,6 +95,9 @@ class EditSalesAdView(View):
 
 
 class ProfileOverviewView(LoginRequiredMixin, ListView):
+    """
+    Gets all SalesAds made by the logged in user and displays them
+    """
     model = SalesAd
     template_name = 'profile_overview.html'
     context_object_name = 'ads'
@@ -91,6 +107,10 @@ class ProfileOverviewView(LoginRequiredMixin, ListView):
 
 
 class DeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Deletes a chosen SalesAd if the user is logged in,
+    only the logged in users ads are reachable.
+    """
     model = SalesAd
     template_name = 'delete_ad.html'
     success_url = reverse_lazy('profile')
