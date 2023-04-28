@@ -10,7 +10,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import SalesAd, User, DirectMessage
+from .models import SalesAd, User, DirectMessage, Chat
 from .forms import SignUpForm, NewAdForm, SalesAdForm, MessageForm
 
 
@@ -149,7 +149,7 @@ class ChatView(LoginRequiredMixin, SingleObjectMixin, FormMixin, TemplateView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) 
         sender = self.request.user
@@ -167,3 +167,20 @@ class ChatView(LoginRequiredMixin, SingleObjectMixin, FormMixin, TemplateView):
             message = DirectMessage.objects.create(sender=sender, recipient=recipient, content=content)
             message.save()
             return HttpResponseRedirect(self.get_success_url())
+
+
+class InboxView(LoginRequiredMixin, TemplateView):
+    template_name = 'inbox.html'
+
+    def get(self, request, *args, **kwargs):
+        # Get all chats involving logged in user
+        chats = Chat.objects.filter(participants=request.user)
+        chat_list = []
+        for chat in chats:
+            latest_dm = DirectMessage.objects.filter(chat=chat).order_by('-timestamp').first()
+            chat_list.append({
+                'chat': chat,
+                'latest_dm': latest_dm
+            })
+
+        return render(request, self.template_name, {'chat_list': chat_list})
