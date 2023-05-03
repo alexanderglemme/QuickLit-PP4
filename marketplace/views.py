@@ -10,8 +10,8 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import SalesAd, User, DirectMessage, Chat
-from .forms import SignUpForm, NewAdForm, SalesAdForm, MessageForm
+from .models import SalesAd, User, Conversation
+from .forms import SignUpForm, NewAdForm, SalesAdForm, ConversationMessageForm
 
 
 class SearchAdsView(View):
@@ -131,56 +131,50 @@ class DeleteView(LoginRequiredMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-class ChatView(LoginRequiredMixin, SingleObjectMixin, FormMixin, TemplateView):
-    model = User
-    template_name = 'chat.html'
-    success_url = reverse_lazy('chat')
-    form_class = MessageForm
+class NewConversationView(LoginRequiredMixin, View):
+    def get(self, request, ad_slug):
+        ad = get_object_or_404(SalesAd, slug=ad_slug)
 
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object(queryset=User.objects.all())
-        return super().get(request, *args, **kwargs)
+        if ad.seller == self.request.user:
+            return redirect('index')
 
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        self.object = self.get_object(queryset=User.objects.all())
+        conversations = Conversation.objects.filter(ad=ad).filter(members__in=[self.request.user.id])
+
+        if conversations:
+            pass # redirect to conversations
+
+        form = ConversationMessageForm()
+        return render(request, 'new_chat.html', {
+            'form': form
+        })
+
+    def post(self, request, ad_slug):
+        ad = get_object_or_404(SalesAd, slug=ad_slug)
+
+        if ad.seller == self.request.user:
+            return redirect('index')
+
+        conversations = Conversation.objects.filter(ad=ad).filter(members__in=[self.request.user.id])
+
+        if conversations:
+            pass # redirect to conversations
+
+        form = ConversationMessageForm(request.POST)
 
         if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+            conversation = Conversation.objects.create(ad=ad)
+            conversation.members.add(request.user)
+            conversation.members.add(ad.seller)
+            conversation.save()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs) 
-        sender = self.request.user
-        recipient = self.object
-        context['recipient'] = recipient
-        context['sender'] = sender
-        context['messages'] = DirectMessage.objects.filter(sender=sender, recipient=recipient) | DirectMessage.objects.filter(sender=recipient, recipient=sender)
-        context['form'] = self.get_form()
-        return context
+            conversation_message = form.save(commit=False)
+            conversation_message.conversation = conversation
+            conversation_message.created_by = request.user
+            conversation_message.save()
 
-        def form_valid(self, form):
-            recipient = self.object
-            sender = self.request.user
-            content = form.cleaned_data.get('content')
-            message = DirectMessage.objects.create(sender=sender, recipient=recipient, content=content)
-            message.save()
-            return HttpResponseRedirect(self.get_success_url())
+            return redirect('detail', slug=ad_slug)
 
-
-class InboxView(LoginRequiredMixin, TemplateView):
-    template_name = 'inbox.html'
-
-    def get(self, request, *args, **kwargs):
-        # Get all chats involving logged in user
-        chats = Chat.objects.filter(participants=request.user)
-        chat_list = []
-        for chat in chats:
-            latest_dm = DirectMessage.objects.filter(chat=chat).order_by('-timestamp').first()
-            chat_list.append({
-                'chat': chat,
-                'latest_dm': latest_dm
-            })
-
-        return render(request, self.template_name, {'chat_list': chat_list})
+        return render(request, 'new_chat.html', {
+            'form': form
+        })
+    

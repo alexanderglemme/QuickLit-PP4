@@ -49,23 +49,15 @@ class SalesAd(models.Model):
         return super().save(*args, **kwargs)
 
 
-class Chat(models.Model):
-    participants = models.ManyToManyField(User, blank=True)
+class Conversation(models.Model):
+    ad = models.ForeignKey(SalesAd, related_name='conversations', on_delete=models.CASCADE)
+    members = models.ManyToManyField(User, related_name='conversations')
+    created_at = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return f"Chat {self.pk}"
 
-
-class DirectMessage(models.Model):
-    chat = models.ForeignKey(Chat, null=True, on_delete=models.CASCADE, related_name='messages')
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
-    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
-    timestamp = models.DateTimeField(default=timezone.now)
+class ConversationMessage(models.Model):
+    conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE)
     content = models.TextField()
-
-    def __str__(self):
-        return f"Message {self.pk}"
-
-    def get_absolute_url(self):
-        return reverse('chat')
+    created_at = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, related_name='created_messages', on_delete=models.CASCADE)
 

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from .models import SalesAd, DirectMessage
+from .models import SalesAd, ConversationMessage
 
 
 class LoginForm(AuthenticationForm):
@@ -47,12 +47,16 @@ class SalesAdForm(forms.ModelForm):
         fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'city', 'sold')
 
 
-class MessageForm(forms.ModelForm):
+class ConversationMessageForm(forms.ModelForm):
     """
     A charfield to write a DM to a user
     """
-    content = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Type your message here...'}), label='')
-
     class Meta:
-        model = DirectMessage
-        fields = ['content']
+        model = ConversationMessage
+        fields = ('content',)
+        widgets = {
+            'content': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Type your message here...',
+            })
+        }

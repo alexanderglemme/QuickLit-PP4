@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Category, SalesAd, DirectMessage, Chat
+from .models import Category, SalesAd, Conversation, ConversationMessage
 
 
 admin.site.register(Category)
 admin.site.register(SalesAd)
-admin.site.register(DirectMessage)
-admin.site.register(Chat)
+admin.site.register(Conversation)
+admin.site.register(ConversationMessage)
