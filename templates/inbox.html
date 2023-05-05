@@ -4,10 +4,14 @@
 
 {% block content %}
 
-<!-- {% for chat in chat_list %}
-<div class="card">{{ chat }}</div>
+{% for conversation in conversations %}
+{% if request.user is conversation.ad.seller %}
+<a href="{% url 'active' conversation.id %}">{{ conversation.ad.title }} | {{ conversation.members }}</a>
+{% else %}
+<a href="{% url 'active' conversation.id %}">{{ conversation.ad.title }} | {{ conversation.ad.seller }}</a>
+{% endif %}
 {% empty %}
 <h1>You have no active conversations, find an ad to contact a seller!</h1>
-{% endfor %} -->
+{% endfor %}
 
 {% endblock %}

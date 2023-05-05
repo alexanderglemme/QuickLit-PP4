@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block content %}
+<h1></h1>
+{% for message in conversation.messages.all %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p> <strong>{{ message.created_by.username }}</strong> at {{ message.created_at }}</p>
+            <p> {{ message.content }} </p>
+        </div>
+    </div>
+</div>
+<div>
+{% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+          <div class="mb-3">
+            {{ form }}
+            {% for error in field.errors %}
+              <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+          </div>
+        <button type="submit" class="btn btn-success">Send</button>
+      </form>
+</div>
+
+{% endblock %}

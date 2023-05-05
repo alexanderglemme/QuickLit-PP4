@@ -53,6 +53,10 @@ class Conversation(models.Model):
     ad = models.ForeignKey(SalesAd, related_name='conversations', on_delete=models.CASCADE)
     members = models.ManyToManyField(User, related_name='conversations')
     created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-updated_at']
 
 
 class ConversationMessage(models.Model):

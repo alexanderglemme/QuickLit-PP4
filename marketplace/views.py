@@ -19,7 +19,7 @@ class SearchAdsView(View):
     Searches sales ads, and displays them based on the query
     """
     def get(self, request):
-        query = request.GET.get('query', '').replace('+', '-')
+        query = self.request.GET.get('query', '').replace('+', '-')
         ads = SalesAd.objects.filter(sold=False)
 
         if query:
@@ -79,7 +79,8 @@ class NewAdView(LoginRequiredMixin, CreateView):
 class EditSalesAdView(View):
     """
     Gets the given sales ad then posts the new instance
-    of a the SalesAd entry if the user is the seller
+    of the SalesAd entry if the user is the seller
+    and redirects to the detail view of edited ad
     """
     def get(self, request, slug):
         sales_ad = get_object_or_404(SalesAd, slug=slug, seller=request.user)
@@ -131,33 +132,34 @@ class DeleteView(LoginRequiredMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-class NewConversationView(LoginRequiredMixin, View):
-    def get(self, request, ad_slug):
-        ad = get_object_or_404(SalesAd, slug=ad_slug)
+class NewConversationView(LoginRequiredMixin, CreateView):
+    def get(self, request, ad_pk):
+        ad = get_object_or_404(SalesAd, pk=ad_pk)
+        
+        if ad.seller == request.user:
+            return redirect('profile')
 
-        if ad.seller == self.request.user:
-            return redirect('index')
-
-        conversations = Conversation.objects.filter(ad=ad).filter(members__in=[self.request.user.id])
-
+        conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
+        
         if conversations:
-            pass # redirect to conversations
+            pass # redirect to conversation
 
         form = ConversationMessageForm()
+ 
         return render(request, 'new_chat.html', {
             'form': form
         })
 
-    def post(self, request, ad_slug):
-        ad = get_object_or_404(SalesAd, slug=ad_slug)
+    def post(self, request, ad_pk):
+        ad = get_object_or_404(SalesAd, pk=ad_pk)
 
-        if ad.seller == self.request.user:
-            return redirect('index')
+        if ad.seller == request.user:
+            return redirect('profile')
 
-        conversations = Conversation.objects.filter(ad=ad).filter(members__in=[self.request.user.id])
-
+        conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
+        
         if conversations:
-            pass # redirect to conversations
+            pass # redirect to conversation
 
         form = ConversationMessageForm(request.POST)
 
@@ -172,9 +174,47 @@ class NewConversationView(LoginRequiredMixin, View):
             conversation_message.created_by = request.user
             conversation_message.save()
 
-            return redirect('detail', slug=ad_slug)
-
+            return redirect('inbox')
+ 
         return render(request, 'new_chat.html', {
             'form': form
         })
     
+
+class InboxView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        conversations = Conversation.objects.filter(members__in=[self.request.user.id])
+
+        return render(request, 'inbox.html', {
+            'conversations': conversations
+        })
+
+
+class ActiveConversationView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        conversation = Conversation.objects.filter(members__in=[request.user.id]).get(pk=pk)
+        form = ConversationMessageForm()
+        return render(request, 'active_conversation.html', {
+            'conversation': conversation,
+            'form': form
+        })
+
+    def post(self, request, pk):
+        conversation = Conversation.objects.filter(members__in=[request.user.id]).get(pk=pk)
+        form = ConversationMessageForm(request.POST)
+
+        if form.is_valid():
+            conversation_message = form.save(commit=False)
+            conversation_message.conversation = conversation
+            conversation_message.created_by = request.user
+            conversation_message.save()
+
+            conversation.save()
+
+            return redirect('active', pk=pk)
+
+        return render(request, 'active_conversation.html', {
+            'conversation': conversation,
+            'form': form
+        })
