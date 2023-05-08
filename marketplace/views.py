@@ -19,11 +19,18 @@ class SearchAdsView(View):
     Searches sales ads, and displays them based on the query
     """
     def get(self, request):
-        query = self.request.GET.get('query', '').replace('+', '-')
+        query = self.request.GET.get('query', '')
         ads = SalesAd.objects.filter(sold=False)
 
         if query:
-            ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query) | Q(category__icontains=query) | Q(seller__icontains=query) | Q(author__icontains=query))
+            ads = ads.filter(
+                Q(title__icontains=query) |
+                Q(description__icontains=query) |
+                Q(author__icontains=query) |
+                Q(city__icontains=query) |
+                Q(category__name__icontains=query) |
+                Q(seller__username__icontains=query)
+            )
 
         return render(request, 'search_ads.html', {
             'ads': ads,

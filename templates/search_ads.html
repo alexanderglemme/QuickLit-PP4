@@ -6,23 +6,26 @@
 <div class="container-fluid">
     <div class="row justify-content-center mt-5">
         <div class="col">
-            <form method="get" action="/search/">
-            <div class="input-group">
-                <input type="text" name="query" value="{{ query }}" class="form-control rounded" placeholder="Search for title, author, seller, category or description" aria-label="Search"
-                    aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-outline-primary disabled">Search</button>
+            <form method="GET" action="/search/">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="query" value="{{ query }}" class="form-control rounded"
+                        placeholder="Search for title, author, seller, category, city or description" aria-label="Search"
+                        aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
             </form>
-            </div>
         </div>
     </div>
+</div>
 </div>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 mt-4">
             <div class="row">
+                <!-- {% if query %} -->
                 {% for ad in ads %}
-                <div class="col-md-3">
+                <div class="col-md-4 col-lg-3">
                     <div class="card mb-4 shadow">
                         <div class="card-body">
                             <div class="image-container mb-3 px-5 rounded">
@@ -41,7 +44,7 @@
                             </div>
                             <p class="card-text">Author: {{ ad.author }}</p>
                             <p class="card-text">Price: {{ ad.price }} SEK</p>
-                            <a href="#">
+                            <a href="{% url 'new_chat' ad.id %}">
                                 <button type="button" class="btn btn-primary btn-sm">Contact Seller</button>
                             </a>
                             <hr class="mt-4">
@@ -51,11 +54,8 @@
                         </div>
                     </div>
                 </div>
-                {% if forloop.counter == 4 %}
-            </div>
-            <div class="row">
-                {% endif %}
                 {% endfor %}
+                <!-- {% endif %} -->
 
             </div>
         </div>

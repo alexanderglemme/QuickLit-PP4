@@ -5,13 +5,13 @@
 {% block content %}
 
 {% for conversation in conversations %}
-{% if request.user is conversation.ad.seller %}
-<a href="{% url 'active' conversation.id %}">{{ conversation.ad.title }} | {{ conversation.members }}</a>
+{% if user.get_username in conversation.members.first %}
+<a href="{% url 'active' conversation.id %}">{{ conversation.ad.title }} | {{ conversation.members.last }} </a>
 {% else %}
-<a href="{% url 'active' conversation.id %}">{{ conversation.ad.title }} | {{ conversation.ad.seller }}</a>
+<a href="{% url 'active' conversation.id %}">{{ conversation.ad.title }} | {{ conversation.members.first }} </a>
 {% endif %}
 {% empty %}
-<h1>You have no active conversations, find an ad to contact a seller!</h1>
+<h1>You have no active conversations, find an ad and contact a seller!</h1>
 {% endfor %}
 
 {% endblock %}
