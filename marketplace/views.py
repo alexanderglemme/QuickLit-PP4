@@ -149,7 +149,7 @@ class NewConversationView(LoginRequiredMixin, CreateView):
         conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
         
         if conversations:
-            pass # redirect to conversation
+            return redirect('active', ad_pk)
 
         form = ConversationMessageForm()
  
@@ -166,7 +166,7 @@ class NewConversationView(LoginRequiredMixin, CreateView):
         conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
         
         if conversations:
-            pass # redirect to conversation
+            return redirect('active', ad_pk)
 
         form = ConversationMessageForm(request.POST)
 

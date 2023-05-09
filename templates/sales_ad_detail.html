@@ -19,9 +19,12 @@
             <hr>
             <p>{{ ad.description }}</p>
             <p>Posted by: {{ ad.seller }}, {{ ad.created_on }} <br>Location: {{ ad.city }}</p>
-            <a href="#">
-                <button type="button" class="btn btn-primary">Contact Seller</button>
-            </a>
+            {% if request.user.get_username == ad.seller.get_username %}
+            <a href="{% url 'delete' ad.slug %}" class="btn btn-danger">Delete Ad</a>
+            <a href="{% url 'editad' ad.slug %}" class="btn btn-success">Edit Ad</a>
+            {% else %}
+            <a href="{% url 'new_chat' ad.id %}" class="btn btn-primary">Contact Seller</a>
+            {% endif %}
         </div>
     </div>
 </div>
