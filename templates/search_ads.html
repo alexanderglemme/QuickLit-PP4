@@ -10,8 +10,8 @@
                 {% csrf_token %}
                 <div class="input-group">
                     <input type="text" name="query" value="{{ query }}" class="form-control rounded"
-                        placeholder="Search for title, author, seller, category, city or description" aria-label="Search"
-                        aria-describedby="search-addon" />
+                        placeholder="Search for title, author, seller, category, city or description"
+                        aria-label="Search" aria-describedby="search-addon" />
                     <button type="submit" class="btn btn-outline-primary">Search</button>
             </form>
         </div>
@@ -23,7 +23,6 @@
     <div class="row">
         <div class="col-md-12 mt-4">
             <div class="row">
-                <!-- {% if query %} -->
                 {% for ad in ads %}
                 <div class="col-md-4 col-lg-3">
                     <div class="card mb-4 shadow">
@@ -55,8 +54,6 @@
                     </div>
                 </div>
                 {% endfor %}
-                <!-- {% endif %} -->
-
             </div>
         </div>
     </div>
