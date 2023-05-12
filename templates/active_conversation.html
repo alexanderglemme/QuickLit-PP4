@@ -45,18 +45,40 @@
 </div>
 {% endfor %}
 
-<div>
-
-  <form method="POST">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col my-5">
+  <form method="POST" class="border border-secondary rounded p-2 mb-5">
     {% csrf_token %}
     <div class="mb-3">
-      {{ form }}
+      {{ form.content }}
       {% for error in field.errors %}
       <div class="invalid-feedback d-block">{{ error }}</div>
       {% endfor %}
     </div>
-    <button type="submit" class="btn btn-success">Send</button>
+    <div class="d-flex flex-row">
+      <div class="col-6 d-flex justify-content-start">
+    <p class="text-muted fst-italic fw-light">press Shift + Enter to make a new line</p>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+    <button type="submit" class="btn btn-lg btn-outline-primary">Send</button>
+      </div>
+    </div>
   </form>
+    </div>
+  </div>
 </div>
+<!-- Template specifik code snippet to handle form submission by pressing Enter -->
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+  $('#message-input').on('keydown', function(e) {
+    if (e.keyCode === 13 && !e.shiftKey) {  // Check if Enter key is pressed without Shift key
+      e.preventDefault();  // Prevent the default form submission
+      $(this).closest('form').submit();  // Submit the form
+    }
+  });
+});
+</script>
 
 {% endblock %}

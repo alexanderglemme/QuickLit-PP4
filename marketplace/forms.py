@@ -55,8 +55,11 @@ class ConversationMessageForm(forms.ModelForm):
         model = ConversationMessage
         fields = ('content',)
         widgets = {
-            'content': forms.TextInput(attrs={
+            'content': forms.Textarea(attrs={
+                'id': 'message-input',
+                'rows': '3',
                 'class': 'form-control',
+                'autocomplete': 'off',
                 'placeholder': 'Type your message here...',
             })
         }
