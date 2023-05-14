@@ -16,7 +16,8 @@ from .forms import SignUpForm, NewAdForm, SalesAdForm, ConversationMessageForm
 
 class SearchAdsView(View):
     """
-    Searches sales ads, and displays them based on the query
+    Searches sales ads based on the users query
+    and gets the ads containing said query
     """
     def get(self, request):
         query = self.request.GET.get('query', '')
@@ -40,7 +41,7 @@ class SearchAdsView(View):
 
 class SalesAdList(generic.ListView):
     """
-    Gets all sales ads and displays them in order of newest-oldest.
+    Gets a list of all ads in the order of newest to oldest.
     """
     model = SalesAd
     queryset = SalesAd.objects.filter(sold=False).order_by('-created_on')
@@ -49,7 +50,9 @@ class SalesAdList(generic.ListView):
 
 
 class SalesAdDetail(View):
-
+    """
+    Gets a single ad
+    """
     def get(self, request, slug, *args, **kwargs):
         """
         Gets a single ad
@@ -64,6 +67,10 @@ class SalesAdDetail(View):
 
 
 class SignUpView(CreateView):
+    """
+    View for signing up to QuickLit, utilizing the SignUpForm
+    which inherits from djangos UserCreationForm
+    """
     form_class = SignUpForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
@@ -87,7 +94,7 @@ class EditSalesAdView(View):
     """
     Gets the given sales ad then posts the new instance
     of the SalesAd entry if the user is the seller
-    and redirects to the detail view of edited ad
+    and redirects to the detail view of the edited ad
     """
     def get(self, request, slug):
         sales_ad = get_object_or_404(SalesAd, slug=slug, seller=request.user)
@@ -121,7 +128,8 @@ class DeleteView(LoginRequiredMixin, DeleteView):
     """
     Deletes a chosen SalesAd if the user is logged in,
     only the logged in users ads are reachable 
-    and if the seller is not the user raises 404.
+    and if by som very unlikely reason
+    the seller is not the user it raises 404.
     """
     model = SalesAd
     template_name = 'delete_ad.html'
@@ -140,6 +148,13 @@ class DeleteView(LoginRequiredMixin, DeleteView):
 
 
 class NewConversationView(LoginRequiredMixin, CreateView):
+    """
+    Gets the ads id, makes a new conversation object
+    setting the members of the new conversation
+    to the logged in user and the ads seller
+    and sets the conversations id to the
+    ads pk, also saves the message.
+    """
     def get(self, request, ad_pk):
         ad = get_object_or_404(SalesAd, pk=ad_pk)
         
@@ -189,6 +204,10 @@ class NewConversationView(LoginRequiredMixin, CreateView):
     
 
 class InboxView(LoginRequiredMixin, View):
+    """
+    Gets all conversation objects which members field
+    contains the logged in user
+    """
 
     def get(self, request):
         conversations = Conversation.objects.filter(members__in=[self.request.user.id])
@@ -199,6 +218,13 @@ class InboxView(LoginRequiredMixin, View):
 
 
 class ActiveConversationView(LoginRequiredMixin, View):
+    """
+    Gets the conversation that the logged in user is a member in,
+    gets the form in which the user makes a message in,
+    posts the message to the conversation object and saves it,
+    enabling users to chat back and forth.
+    """
+
     def get(self, request, pk):
         conversation = Conversation.objects.filter(members__in=[request.user.id]).get(pk=pk)
         form = ConversationMessageForm()

@@ -1,24 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Jomolhari&family=Montserrat:wght@300;400;600;700&display=swap');
 
+
+/* Scrollbar styling for Chrome and Safari, also works for Firefox and Edge v.79 and onward */
 ::-webkit-scrollbar {
     width: 10px;
   }
   
-  /* Track */
+/* Track */
 ::-webkit-scrollbar-track {
     background: transparent;
   }
   
-  /* Handle */
+/* Handle */
 ::-webkit-scrollbar-thumb {
     background: #b9b7b7;
     border-radius: 10px;
   }
   
-  /* Handle on hover */
+/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+/* Custom style rules for base.html */
 body {
     margin: 0px;
     padding: 0px;
@@ -29,6 +33,7 @@ footer {
     background-color: #dfdfdf;
 }
 
+/* QuickLit branding colors */
 .ql-blue {
     color: #0088ff;
 }
@@ -37,11 +42,13 @@ footer {
     background-color: #0088ff;
 }
 
+/* Custom style rule for sales_ad_detail.html */
 .detail-img {
     height: 20rem;
     width: 15rem;
 }
 
+/* Custom styles for index.html */
 #hero {
     background-image: url(https://res.cloudinary.com/dvwfilwf6/image/upload/v1682328999/aleksei-ieshkin-A6obuTm7_z0-unsplash_xeh2us.jpg);
     background-position: center;

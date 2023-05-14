@@ -21,7 +21,7 @@ class Category(models.Model):
 
 class SalesAd(models.Model):
     """
-    Model for the post or item that the user wants to advertise
+    Model for the book that the user wants to advertise on QuickLit
     """
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sales_ad')
     title = models.CharField(max_length=255)
