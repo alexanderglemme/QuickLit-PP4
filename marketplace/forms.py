@@ -36,6 +36,12 @@ class NewAdForm(forms.ModelForm):
     class Meta:
         model = SalesAd
         fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'city')
+        widgets = {
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': '8'
+            })
+        }
 
 
 class SalesAdForm(forms.ModelForm):
@@ -45,7 +51,12 @@ class SalesAdForm(forms.ModelForm):
     class Meta:
         model = SalesAd
         fields = ('category', 'item_image', 'title', 'author', 'price', 'description', 'city', 'sold')
-
+        widgets = {
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': '8'
+            })
+        }
 
 class ConversationMessageForm(forms.ModelForm):
     """

@@ -5,6 +5,7 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
@@ -33,8 +34,12 @@ class SearchAdsView(View):
                 Q(seller__username__icontains=query)
             )
 
+        paginator = Paginator(ads, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         return render(request, 'search_ads.html', {
-            'ads': ads,
+            'page_obj': page_obj,
             'query': query,
         })
 
