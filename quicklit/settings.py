@@ -135,12 +135,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-cloudinary.config(
-  cloud_name = "dvwfilwf6",
-  api_key = os.environ.get("MY_API_KEY"),
-  api_secret = os.environ.get("MY_API_SECRET"),
-  secure = True
-)
+CLOUDINARY = {
+    'cloud_name': "dvwfilwf6",
+    'api_key': os.environ.get("MY_API_KEY"),
+    'api_secret': os.environ.get("MY_API_SECRET"),
+}
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
