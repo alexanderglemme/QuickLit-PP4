@@ -136,7 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 cloudinary.config(
-  cloud_name = os.environ.get("MY_CLOUD_NAME"),
+  cloud_name = "dvwfilwf6",
   api_key = os.environ.get("MY_API_KEY"),
   api_secret = os.environ.get("MY_API_SECRET"),
   secure = True
