@@ -37,13 +37,13 @@
                         {% endif %}
                     </div>
                     <div class="col">
-                        <a href=" {% url 'detail' ad.slug %}">
+                        <a href=" {% url 'detail' ad.slug %}" target="_blank">
                             <p class="card-title">{{ ad.title }}</p>
                         </a>
                     </div>
                     <p class="card-text">Author: {{ ad.author }}</p>
                     <p class="card-text">Price: {{ ad.price }} SEK</p>
-                    <a href="{% url 'new_chat' ad.id %}" class="btn btn-primary btn-sm mb-5">Contact Seller</a>
+                    <a href="{% url 'new_chat' ad.id %}" target="_blank" class="btn btn-primary btn-sm mb-5">Contact Seller</a>
                     <div class="card-footer">
                         <p class="card-text text-muted h6">Seller: {{ ad.seller }}</p>
                         <p class="card-text text-muted h6">Posted: {{ ad.created_on }}</p>
