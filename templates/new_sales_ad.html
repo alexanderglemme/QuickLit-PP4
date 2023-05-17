@@ -12,13 +12,17 @@
             <h3 class="mb-0">New Sales Ad</h3>
           </div>
           <div class="card-body">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               {% for field in form %}
                 <div class="mb-3">
                   {{ field.label_tag }}
                   <br>
-                  {{ field }}
+                  {% if field.name == 'item_image' %}
+                    <input type="file" name="{{ field.name }}">
+                  {% else %}
+                    {{ field }}
+                  {% endif %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback d-block">{{ error }}</div>
                   {% endfor %}
