@@ -19,7 +19,7 @@
                   {{ field.label_tag }}
                   <br>
                   {% if field.name == 'item_image' %}
-                    <input type="image" name="{{ field.name }}">
+                    <input type="file" name="{{ field.name }}">
                   {% else %}
                     {{ field }}
                   {% endif %}
