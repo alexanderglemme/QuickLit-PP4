@@ -19,20 +19,15 @@
             <div class="d-grid gap-2">
                 <a href="{% url 'active' conversation.id %}" class="btn">
                     <div class="card bg-primary text-light">
-                    {% if conversation.messages.last.created_by.get_username != request.user.get_username %}
+                        {% if conversation.messages.last.created_by.get_username != request.user.get_username %}
                         <p>New message<strong class="text-danger">*</strong></p>
-                    {% endif %}
-                        {% if user in conversation.members.all|slice:":1" %}
-                        <p><strong>{{ conversation.members.last.get_username }}</strong> | {{ conversation.updated_at }}
-                        </p>
-                        <h5>{{ conversation.ad.title }} | {{ conversation.ad.author }}</h5>
-                        <p></p>
-                        {% else %}
-                        <p><strong>{{ conversation.members.first.get_username }}</strong> | {{ conversation.updated_at }}
-                        </p>
-                        <h5>{{ conversation.ad.title }} | {{ conversation.ad.author }}</h5>
-                        <p></p>
                         {% endif %}
+                        {% if conversation.members.first.get_username == request.user.get_username %}
+                        <p><strong>{{ conversation.members.last.get_username }}</strong> | {{ conversation.updated_at }}</p> 
+                        {% else %}
+                        <p><strong>{{ conversation.members.first.get_username }}</strong> | {{ conversation.updated_at }}</p>
+                        {% endif %}
+                        <h5>{{ conversation.ad.title }} | {{ conversation.ad.author }}</h5> 
                     </div>
                 </a>
             </div>
