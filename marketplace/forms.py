@@ -58,6 +58,7 @@ class SalesAdForm(forms.ModelForm):
             })
         }
 
+
 class ConversationMessageForm(forms.ModelForm):
     """
     A charfield to write a DM to a user

@@ -132,7 +132,7 @@ class ProfileOverviewView(LoginRequiredMixin, ListView):
 class DeleteView(LoginRequiredMixin, DeleteView):
     """
     Deletes a chosen SalesAd if the user is logged in,
-    only the logged in users ads are reachable 
+    only the logged in users ads are reachable
     and if by som very unlikely reason
     the seller is not the user it raises 404.
     """
@@ -162,17 +162,17 @@ class NewConversationView(LoginRequiredMixin, CreateView):
     """
     def get(self, request, ad_pk):
         ad = get_object_or_404(SalesAd, pk=ad_pk)
-        
+
         if ad.seller == request.user:
             return redirect('profile')
 
         conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
-        
+
         if conversations:
             return redirect('active', ad_pk)
 
         form = ConversationMessageForm()
- 
+
         return render(request, 'new_chat.html', {
             'form': form
         })
@@ -184,7 +184,7 @@ class NewConversationView(LoginRequiredMixin, CreateView):
             return redirect('profile')
 
         conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
-        
+
         if conversations:
             return redirect('active', ad_pk)
 
@@ -202,11 +202,11 @@ class NewConversationView(LoginRequiredMixin, CreateView):
             conversation_message.save()
 
             return redirect('inbox')
- 
+
         return render(request, 'new_chat.html', {
             'form': form
         })
-    
+
 
 class InboxView(LoginRequiredMixin, View):
     """
