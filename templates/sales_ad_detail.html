@@ -17,7 +17,7 @@
             <h2>By {{ ad.author }}</h2>
             <h3>{{ ad.price }} SEK</h3>
             <hr>
-            <p>{{ ad.description }}</p>
+            <p>{{ ad.description|linebreaksbr }}</p>
             <p>Posted by: {{ ad.seller }}, {{ ad.created_on }} <br>Location: {{ ad.city }}</p>
             {% if request.user.get_username == ad.seller.get_username %}
             <a href="{% url 'delete' ad.slug %}" class="btn btn-danger">Delete Ad</a>
