@@ -19,6 +19,7 @@
   <link rel="icon" type="image/x-icon" href=" {% static 'favicon.ico' %}">
 
 </head>
+<!-- Classes on body tag to make footer stay at bottom of page rather than to stick to bottom of pages content -->
 
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg bg-ql-blue p-4 shadow">
@@ -50,7 +51,7 @@
         <a href="{% url 'profile' %}" class="btn btn-primary shadow mx-2">Profile Overview</a>
         <a href="{% url 'logout' %}" class="btn btn-secondary">Log Out</a>
         {% else %}
-        <a href="{% url 'signup' %}" class="btn btn-success">Sign Up</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary shadow">Sign Up</a>
         <a href="{% url 'login' %}" class="btn btn-secondary mx-2">Log In</a>
         {% endif %}
       </div>
@@ -61,23 +62,39 @@
 
     {% endblock %}
   </main>
-  <footer class="container-fluid mt-auto mb-0 p-4 text-center shadow-lg">
+  <footer class="container-fluid p-4 text-center shadow-lg">
     <div class="row">
       <div class="col-4">
-        <p>QuickLit™</p>
+        <a href="#" target="_blank">About QuickLit™</a>
       </div>
       <div class="col-4">
-        <p>Copyright 2023 - All rights reserved - Alexander Glemme</p>
+        <p class="text-muted">Copyright 2023 - All rights reserved - Alexander Glemme</p>
       </div>
       <div class="col-4">
-        <a href="https://www.facebook.com/" target="_blank" aria-label="Opens Facebook in a new tab"><i
-            class="fa-brands fa-facebook footer-icon"></i></a>
-        <a href="https://www.instagram.com/" target="_blank" aria-label="Opens Instagram in a new tab"><i
-            class="fa-brands fa-instagram footer-icon"></i></a>
-        <a href="https://twitter.com/" target="_blank" aria-label="Opens Twitter in a new tab"><i
-            class="fa-brands fa-twitter footer-icon"></i></a>
+        <p class="text-muted">Contact information: <br> Email: quicklit@gmail.com</p>
       </div>
-    </div>
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <p>
+            <a class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#short-disclaimer" role="button"
+              aria-expanded="false" aria-controls="short-disclaimer">
+              Terms of use
+            </a>
+          </p>
+          <div class="collapse" id="short-disclaimer">
+            <div class="card card-body bg-ql-blue text-light text-right">
+              Though the website is fully functional, and you can indeed contact users to buy
+              books, the main purpose of this website is for me to build, learn and grow as a developer. Therefore any
+              incidents or harm caused to you as a sovereign individual as a result of your
+              activity on this platform will not be compensated.
+              As of now, the admin of this website has access to all or any messages you send and/or recieve.
+              That being said, I (the admin and creator of QuickLit) want to make it clear that you as a user should not
+              share any sensitive information that you are not
+              comfortable with sharing openly, under any circumstance, on this website.
+            </div>
+          </div>
+        </div>
+      </div>
   </footer>
 </body>
 
