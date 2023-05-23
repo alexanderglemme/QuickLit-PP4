@@ -14,16 +14,18 @@
           <form method="POST">
             {% csrf_token %}
             {% for field in form %}
-              <div class="mb-3">
-                {{ field.label_tag }}
-                <br>
-                {{ field }}
-                {% for error in field.errors %}
-                  <div class="invalid-feedback d-block">{{ error }}</div>
-                {% endfor %}
-              </div>
+            <div class="mb-3">
+              {{ field.label_tag }}
+              <br>
+              {{ field }}
+              {% for error in field.errors %}
+              <div class="invalid-feedback d-block">{{ error }}</div>
+              {% endfor %}
+            </div>
             {% endfor %}
+            <p class="text-muted mt-2"><i>Make sure to scroll down and read the terms of use before signing up*</i></p>
             <button type="submit" class="btn btn-primary">Sign Up</button>
+            
           </form>
         </div>
       </div>
