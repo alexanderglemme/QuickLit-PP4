@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<div class="containter-fluid no-gutter text-center" id="hero" style="background-image: url(https://res.cloudinary.com/dvwfilwf6/image/upload/v1682328999/aleksei-ieshkin-A6obuTm7_z0-unsplash_xeh2us.jpg);">
+<div class="containter-fluid no-gutter text-center" id="hero"
+    style="background-image: url(https://res.cloudinary.com/dvwfilwf6/image/upload/v1682328999/aleksei-ieshkin-A6obuTm7_z0-unsplash_xeh2us.jpg);">
     <div class="container">
         <div class="row">
             <div class="col h-100 text-center rounded" id="hero-text">
@@ -22,38 +23,38 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-            {% for ad in salesad_list|slice:":4" %}
-            <div class="col-sm-10 col-md-4 col-lg-3">
-                <div class="card mb-4 shadow">
-                    <div class="card-body">
-                        <div class="image-container mb-3 px-5 rounded">
-                            {% if "placeholder" in ad.item_image.url %}
-                            <img class="d-block w-100 card-img-top" alt="..." style="height: 170px;"
-                                src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
-                            {% else %}
-                            <img class="d-block w-100 card-img-top index-image" alt="..." style="height: 170px;"
-                                src=" {{ ad.item_image.url }}">
-                            {% endif %}
-                        </div>
-                        <div class="container justify-content-around">
-                            <a href=" {% url 'detail' ad.slug %}" class="ad-link" target="_blank">
-                                <h5 class="card-title mt-5" style="height: 5rem;">{{ ad.title }}</h5>
-                            </a>
-                        </div>
-                        <p class="card-text">Author: {{ ad.author }}</p>
-                        <p class="card-text">Price: {{ ad.price }} SEK</p>
-                        <a href="{% url 'new_chat' ad.id %}">
-                            <button type="button" class="btn btn-primary btn-sm">Contact Seller</button>
+    <div class="row align-xl-center">
+        {% for ad in salesad_list|slice:":4" %}
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="card px-4 mb-5 shadow pl-3">
+                <div class="card-body">
+                    <div class="card-img-top mb-3 px-3 rounded">
+                        {% if "placeholder" in ad.item_image.url %}
+                        <img class="d-block w-100 card-img-top mw-100" alt="..." style="height: 12rem;"
+                            src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
+                        {% else %}
+                        <img class="d-block card-img-top mw-100" alt="..." style="height: 12rem;"
+                            src=" {{ ad.item_image.url }}">
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <a href=" {% url 'detail' ad.slug %}" target="_blank">
+                            <p class="card-title">{{ ad.title }}</p>
                         </a>
-                        <hr class="mt-4">
+                    </div>
+                    <p class="card-text">Author: {{ ad.author }}</p>
+                    <p class="card-text">Price: {{ ad.price }} SEK</p>
+                    <a href="{% url 'new_chat' ad.id %}" target="_blank" class="btn btn-primary btn-sm mb-5">Contact
+                        Seller</a>
+                    <div class="card-footer">
                         <p class="card-text text-muted h6">Seller: {{ ad.seller }}</p>
                         <p class="card-text text-muted h6">Posted: {{ ad.created_on }}</p>
                         <p class="card-text text-muted h6">Location: {{ ad.city }}</p>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
