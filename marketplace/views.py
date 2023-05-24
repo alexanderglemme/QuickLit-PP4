@@ -256,3 +256,15 @@ class ActiveConversationView(LoginRequiredMixin, View):
             'conversation': conversation,
             'form': form
         })
+
+
+class AboutQuickLitView(TemplateView):
+    template_name = 'about.html'
+
+
+def custom_404(request, exception):
+    """
+    Handles HTTP 404 errors
+    """
+    template_name = '404.html'
+    return render(request, template_name, status=404)
