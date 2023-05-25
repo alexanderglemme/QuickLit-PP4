@@ -23,6 +23,9 @@
                         {% if "placeholder" in ad.item_image.url %}
                         <img class="d-block w-100 card-img-top" alt="..." style="height: 12rem;"
                             src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
+                        {% elif ad.sold %}
+                        <img class="d-block w-100 card-img-top index-image" alt="..." style="height: 12rem;"
+                            src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1685012251/kindpng_1262509_fhdksx.png">
                         {% else %}
                         <img class="d-block w-100 card-img-top index-image" alt="..." style="height: 12rem;"
                             src=" {{ ad.item_image.url }}">

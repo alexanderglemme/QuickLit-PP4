@@ -46,12 +46,11 @@ class SearchAdsView(View):
 
 class SalesAdList(generic.ListView):
     """
-    Gets a list of all ads in the order of newest to oldest.
+    Gets a list of all unsold ads in the order of newest to oldest.
     """
     model = SalesAd
     queryset = SalesAd.objects.filter(sold=False).order_by('-created_on')
     template_name = 'index.html'
-    paginate_by = 6
 
 
 class SalesAdDetail(View):
@@ -62,7 +61,7 @@ class SalesAdDetail(View):
         """
         Gets a single ad
         """
-        queryset = SalesAd.objects.filter(sold=False).order_by('-created_on')
+        queryset = SalesAd.objects.order_by('-created_on')
         sales_ad = get_object_or_404(queryset, slug=slug)
         template_name = 'sales_ad_detail.html'
         context = {
@@ -112,6 +111,10 @@ class EditSalesAdView(View):
 
         if form.is_valid():
             form.save()
+            if sales_ad.sold:
+                return redirect('profile')
+            else:
+                pass
 
             return redirect('detail', slug=slug)
         return render(request, 'edit_sales_ad.html', {'form': form})

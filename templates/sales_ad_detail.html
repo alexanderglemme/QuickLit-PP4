@@ -25,6 +25,9 @@
             {% else %}
             <a href="{% url 'new_chat' ad.id %}" class="btn btn-primary">Contact Seller</a>
             {% endif %}
+            {% if ad.sold %}
+            <h2>(SOLD)</h2>
+            {% endif %}
         </div>
     </div>
 </div>
