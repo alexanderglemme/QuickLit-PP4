@@ -58,6 +58,11 @@ class Conversation(models.Model):
     class Meta:
         ordering = ['-updated_at']
 
+    # Makes a string representation of the members, joins them and returns it to be displayed along with the ad.title
+    def __str__(self):
+        members_str = ', '.join([str(member) for member in self.members.all()])
+        return f"Members: {members_str} - Ad: {self.ad.title}"
+
 
 class ConversationMessage(models.Model):
     conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE)
