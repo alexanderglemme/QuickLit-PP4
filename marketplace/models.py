@@ -64,9 +64,24 @@ class Conversation(models.Model):
         return f"Members: {members_str} - Ad: {self.ad.title}"
 
 
+class StudyGroup(models.Model):
+    group_name = models.CharField(max_length=255)
+    members = models.ManyToManyField(User, related_name='study_groups')
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
+
+    # Makes unique slug for the study group
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.group_name + "-" + str(self.created_at))
+
+        return super().save(*args, **kwargs)
+
+
 class ConversationMessage(models.Model):
-    conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE)
+    study_group = models.ForeignKey(StudyGroup, related_name='study_group_messages', on_delete=models.CASCADE, null=True)
+    conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, related_name='created_messages', on_delete=models.CASCADE)
-

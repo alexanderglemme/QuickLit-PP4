@@ -11,8 +11,8 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import SalesAd, User, Conversation
-from .forms import SignUpForm, NewAdForm, SalesAdForm, ConversationMessageForm
+from .models import SalesAd, User, Conversation, StudyGroup
+from .forms import SignUpForm, NewAdForm, SalesAdForm, ConversationMessageForm, NewStudyGroupForm
 
 
 class SearchAdsView(View):
@@ -213,15 +213,17 @@ class NewConversationView(LoginRequiredMixin, CreateView):
 
 class InboxView(LoginRequiredMixin, View):
     """
-    Gets all conversation objects which members field
+    Gets all conversation objects and study group objects which members field
     contains the logged in user
     """
 
     def get(self, request):
+        study_groups = StudyGroup.objects.filter(members__in=[self.request.user.id])
         conversations = Conversation.objects.filter(members__in=[self.request.user.id])
 
         return render(request, 'inbox.html', {
-            'conversations': conversations
+            'conversations': conversations,
+            'study_groups': study_groups
         })
 
 
@@ -259,6 +261,86 @@ class ActiveConversationView(LoginRequiredMixin, View):
             'conversation': conversation,
             'form': form
         })
+
+
+class NewStudyGroupView(LoginRequiredMixin, CreateView):
+    """
+    View to create a study group
+    """
+    model = StudyGroup
+    form_class = NewStudyGroupForm
+    template_name = 'new_study_group.html'
+    success_url = reverse_lazy('new_group')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class ActiveStudyGroupView(LoginRequiredMixin, View):
+    """
+    Gets the  that the study group if logged in user is a member in it,
+    gets the form in which the user makes a message in,
+    posts the message to the study group object and saves it,
+    enabling users to chat back and forth.
+    """
+
+    def get(self, request, slug):
+        study_group = StudyGroup.objects.filter(members__in=[request.user.id]).get(slug=slug)
+        form = ConversationMessageForm()
+        return render(request, 'active_study_group.html', {
+            'study_group': study_group,
+            'form': form
+        })
+
+    def post(self, request, slug):
+        study_group = StudyGroup.objects.filter(members__in=[request.user.id]).get(slug=slug)
+        form = ConversationMessageForm(request.POST)
+
+        if form.is_valid():
+            conversation_message = form.save(commit=False)
+            conversation_message.study_group = study_group
+            conversation_message.created_by = request.user
+            conversation_message.save()
+
+            study_group.save()
+
+            return redirect('active_group', slug=slug)
+
+        return render(request, 'active_study_group.html', {
+            'study_group': study_group,
+            'form': form
+        })
+
+# class NewStudyGroupView(LoginRequiredMixin, CreateView):
+#     """
+#     View to create a study group which is basically a group chat
+#     """
+#     def get(self, request):
+
+#         form = StudyGroupForm()
+
+#         return render(request, 'new_study_group.html', {
+#             'form': form
+#         })
+
+#     def post(self, request, pk):
+
+#         study_group = StudyGroup.objects.filter(members__in=[request.user.id])
+
+#         if study_group:
+#             return redirect('active_group', pk)
+
+#         form = StudyGroupForm(request.POST)
+
+#         if form.is_valid():
+#             study_group = StudyGroup.objects.create(pk=pk)
+#             study_group.save()
+
+#             return redirect('inbox')
+
+#         return render(request, 'new_study_group.html', {
+#             'form': form
+#         })
 
 
 class AboutQuickLitView(TemplateView):

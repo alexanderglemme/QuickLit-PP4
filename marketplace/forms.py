@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from .models import SalesAd, ConversationMessage
+from .models import SalesAd, ConversationMessage, StudyGroup
 
 
 class LoginForm(AuthenticationForm):
@@ -57,6 +57,15 @@ class SalesAdForm(forms.ModelForm):
                 'rows': '8'
             })
         }
+
+
+class NewStudyGroupForm(forms.ModelForm):
+    """
+    Make a new studygroup.
+    """
+    class Meta:
+        model = StudyGroup
+        fields = ('group_name', 'members')
 
 
 class ConversationMessageForm(forms.ModelForm):

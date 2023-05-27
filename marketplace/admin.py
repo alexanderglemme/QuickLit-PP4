@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Category, SalesAd, Conversation, ConversationMessage
+from .models import Category, SalesAd, Conversation, ConversationMessage, StudyGroup
 
-
+admin.site.register(StudyGroup)
 admin.site.register(Category)
 admin.site.register(ConversationMessage)
 

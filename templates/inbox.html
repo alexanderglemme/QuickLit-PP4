@@ -6,6 +6,46 @@
 <div class="container-fluid text-center">
     <div class="row">
         <div class="col-md-12 mt-5">
+            <h1>Your Study Groups:</h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% for study_group in study_groups %}
+        <div class="row bg-light">
+            <div class="col py-1">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'active_group' study_group.slug %}" class="btn">
+                        <div class="card bg-primary text-light">
+                            {% if study_group.study_group_messages.last.created_by.get_username != request.user.get_username %}
+                            <p>Unanswered message<strong class="text-danger">*</strong></p>
+                            {% endif %}
+                            <h5>{{ study_group.group_name }}</h5> 
+                            <p>
+                                {% for member in study_group.members.all %}
+                                <strong>{{ member.get_username }} </strong> 
+                                {% endfor %}
+                                | {{ study_group.updated_at }}
+                            </p> 
+                           
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row justify-content-center text-center">
+            <div class="col">
+                <h2>You have no active conversations, find an ad and contact a seller!</h2>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="col-md-12 mt-5">
             <h1>Your Conversations:</h1>
         </div>
     </div>
