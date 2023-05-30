@@ -17,9 +17,7 @@
   </script>
   <link rel="stylesheet" href=" {% static 'css/style.css' %}">
   <link rel="icon" type="image/x-icon" href=" {% static 'favicon.ico' %}">
-
 </head>
-<!-- Classes on body tag to make footer stay at bottom of page rather than to stick to bottom of pages content -->
 
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg bg-ql-blue p-4 shadow">
@@ -43,14 +41,14 @@
             {% endif %}
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'search' %}">Search for books</a>
+          </li>
+          <li class="nav-item">
             {% if request.user.is_authenticated %}
             <a class="nav-link" href="{% url 'new_group' %}">Start a study group</a>
             {% else %}
             <a class="nav-link" href="{% url 'login' %}">Start a study group</a>
             {% endif %}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'search' %}">Search for books</a>
           </li>
         </ul>
         {% if request.user.is_authenticated %}
@@ -93,7 +91,7 @@
               Though the website is fully functional, and you can indeed contact users to buy
               books, the main purpose of this website is for me to build, learn and grow as a developer. Therefore any
               incidents or harm caused to you as a sovereign individual as a result of your
-              activity on this platform will not be compensated.
+              activity on this platform will not be compensated for.
               As of now, the admin of this website has access to all or any messages you send and/or recieve.
               That being said, I (the admin and creator of QuickLit) want to make it clear that you as a user should not
               share any sensitive information that you are not

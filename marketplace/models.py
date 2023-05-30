@@ -66,6 +66,7 @@ class Conversation(models.Model):
 
 class StudyGroup(models.Model):
     group_name = models.CharField(max_length=255)
+    group_admin = models.ManyToManyField(User, related_name='group_admin')
     members = models.ManyToManyField(User, related_name='study_groups')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)

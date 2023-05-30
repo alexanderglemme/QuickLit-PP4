@@ -65,7 +65,7 @@ class NewStudyGroupForm(forms.ModelForm):
     """
     class Meta:
         model = StudyGroup
-        fields = ('group_name', 'members')
+        fields = ('group_name', 'members', 'group_admin')
 
 
 class ConversationMessageForm(forms.ModelForm):
