@@ -311,6 +311,28 @@ class ActiveStudyGroupView(LoginRequiredMixin, View):
             'form': form
         })
 
+
+class DeleteStudyGroupView(LoginRequiredMixin, DeleteView):
+    """
+    Deletes a chosen study group if the user is a group_admin
+    """
+    model = StudyGroup
+    template_name = 'delete_study_group.html'
+    success_url = reverse_lazy('inbox')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+
+        for admin in obj.group_admin.all:
+            if admin.get_username() == self.request.user.get_username():
+                return obj
+            else:
+                raise Http404
+
+    def delete(self, request, *args, **kwargs):
+
+        return super().delete(request, *args, **kwargs)
+
 # class NewStudyGroupView(LoginRequiredMixin, CreateView):
 #     """
 #     View to create a study group which is basically a group chat

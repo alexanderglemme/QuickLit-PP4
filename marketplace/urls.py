@@ -6,7 +6,6 @@ from . import views
 from .forms import LoginForm
 
 
-
 urlpatterns = [
     path('', views.SalesAdList.as_view(), name='index'),
     path('new-group/', views.NewStudyGroupView.as_view(), name='new_group'),
@@ -23,6 +22,7 @@ urlpatterns = [
     path('active/<int:pk>/', views.ActiveConversationView.as_view(), name='active'),
     path('edit/<slug:slug>/', views.EditSalesAdView.as_view(), name='editad'),
     path('delete/<slug:slug>/', views.DeleteView.as_view(), name='delete'),
+    path('delete-group/<slug:slug>', views.DeleteStudyGroupView.as_view(), name='delete_group'),
     path('<slug:slug>/', views.SalesAdDetail.as_view(), name='detail'),
 ]
 
