@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.views.generic import CreateView, ListView, DeleteView
 from django.views.generic.base import TemplateView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -132,7 +132,7 @@ class ProfileOverviewView(LoginRequiredMixin, ListView):
         return super().get_queryset().filter(seller=self.request.user)
 
 
-class DeleteView(LoginRequiredMixin, DeleteView):
+class DeleteAdView(LoginRequiredMixin, DeleteView):
     """
     Deletes a chosen SalesAd if the user is logged in,
     only the logged in users ads are reachable
@@ -270,9 +270,18 @@ class NewStudyGroupView(LoginRequiredMixin, CreateView):
     model = StudyGroup
     form_class = NewStudyGroupForm
     template_name = 'new_study_group.html'
-    success_url = reverse_lazy('new_group')
+    success_url = reverse_lazy('inbox')
 
     def form_valid(self, form):
+        study_group = form.save(commit=False)
+        study_group.save()
+        selected_members = form.cleaned_data['search_members']
+
+        for member in selected_members:
+            study_group.members.add(member)
+
+        study_group.members.add(self.request.user)
+        study_group.save()
         return super().form_valid(form)
 
 
@@ -314,7 +323,7 @@ class ActiveStudyGroupView(LoginRequiredMixin, View):
 
 class DeleteStudyGroupView(LoginRequiredMixin, DeleteView):
     """
-    Deletes a chosen study group if the user is a group_admin
+    Deletes a chosen study group. Checks that user is member before deletion.
     """
     model = StudyGroup
     template_name = 'delete_study_group.html'
@@ -323,8 +332,8 @@ class DeleteStudyGroupView(LoginRequiredMixin, DeleteView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
 
-        for admin in obj.group_admin.all:
-            if admin.get_username() == self.request.user.get_username():
+        for member in obj.members.all():
+            if Q(member__icontains=self.request.user):
                 return obj
             else:
                 raise Http404

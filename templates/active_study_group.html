@@ -11,12 +11,8 @@
                                            {{ member.get_username }}
                                        {% endfor %}
       </h2>
-      {% for admin in study_group.group_admin.all %}
-      {% if request.user.get_username == admin.get_username %}
       <a href="{% url 'delete_group' study_group.slug %}" class="btn btn-danger">Delete study group</a>
       <a href="" class="btn btn-success">Edit study group</a>
-      {% endif %}
-      {% endfor %}
     </div>
     <hr>
   </div>
@@ -75,8 +71,6 @@
 </div>
 
 <!-- Template specifik code snippet to handle form submission by pressing Enter instead of having to click send btn -->
-<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-  crossorigin="anonymous"></script>
 <script>
   $(document).ready(function () {
     $('#message-input').on('keydown', function (e) {

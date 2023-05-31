@@ -63,9 +63,23 @@ class NewStudyGroupForm(forms.ModelForm):
     """
     Make a new studygroup.
     """
+    search_members = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        widget=forms.SelectMultiple(attrs={
+            'class': 'members-select2 form-control'
+            })
+    )
+
     class Meta:
         model = StudyGroup
-        fields = ('group_name', 'members', 'group_admin')
+        fields = ['group_name', 'search_members']
+        widgets = {
+            'group_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your group name...',
+                'autocomplete': 'off'
+            })
+        }
 
 
 class ConversationMessageForm(forms.ModelForm):

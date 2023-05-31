@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quicklit-pp4.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['quicklit-pp4.herokuapp.com', '8000-alexandergl-quicklitpp4-qkcnv1e51zg.ws-eu98.gitpod.io', 'localhost']
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
