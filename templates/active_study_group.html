@@ -12,7 +12,7 @@
                                        {% endfor %}
       </h2>
       <a href="{% url 'delete_group' study_group.slug %}" class="btn btn-danger">Delete study group</a>
-      <a href="" class="btn btn-success">Edit study group</a>
+      <a href="{% url 'edit_group' study_group.slug %}" class="btn btn-success">Edit study group</a>
     </div>
     <hr>
   </div>

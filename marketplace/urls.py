@@ -20,6 +20,7 @@ urlpatterns = [
     path('new-chat/<int:ad_pk>/', views.NewConversationView.as_view(), name='new_chat'),
     path('active-group/<slug:slug>', views.ActiveStudyGroupView.as_view(), name='active_group'),
     path('active/<int:pk>/', views.ActiveConversationView.as_view(), name='active'),
+    path('edit-group/<slug:slug>', views.EditStudyGroupView.as_view(), name='edit_group'),
     path('edit/<slug:slug>/', views.EditSalesAdView.as_view(), name='editad'),
     path('delete/<slug:slug>/', views.DeleteAdView.as_view(), name='delete'),
     path('delete-group/<slug:slug>', views.DeleteStudyGroupView.as_view(), name='delete_group'),

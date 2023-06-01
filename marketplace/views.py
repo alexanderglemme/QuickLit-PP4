@@ -136,7 +136,7 @@ class DeleteAdView(LoginRequiredMixin, DeleteView):
     """
     Deletes a chosen SalesAd if the user is logged in,
     only the logged in users ads are reachable
-    and if by som very unlikely reason
+    and if by some very unlikely reason
     the seller is not the user it raises 404.
     """
     model = SalesAd
@@ -287,7 +287,7 @@ class NewStudyGroupView(LoginRequiredMixin, CreateView):
 
 class ActiveStudyGroupView(LoginRequiredMixin, View):
     """
-    Gets the  that the study group if logged in user is a member in it,
+    Gets the study group if logged in user is a member in it,
     gets the form in which the user makes a message in,
     posts the message to the study group object and saves it,
     enabling users to chat back and forth.
@@ -339,39 +339,7 @@ class DeleteStudyGroupView(LoginRequiredMixin, DeleteView):
                 raise Http404
 
     def delete(self, request, *args, **kwargs):
-
         return super().delete(request, *args, **kwargs)
-
-# class NewStudyGroupView(LoginRequiredMixin, CreateView):
-#     """
-#     View to create a study group which is basically a group chat
-#     """
-#     def get(self, request):
-
-#         form = StudyGroupForm()
-
-#         return render(request, 'new_study_group.html', {
-#             'form': form
-#         })
-
-#     def post(self, request, pk):
-
-#         study_group = StudyGroup.objects.filter(members__in=[request.user.id])
-
-#         if study_group:
-#             return redirect('active_group', pk)
-
-#         form = StudyGroupForm(request.POST)
-
-#         if form.is_valid():
-#             study_group = StudyGroup.objects.create(pk=pk)
-#             study_group.save()
-
-#             return redirect('inbox')
-
-#         return render(request, 'new_study_group.html', {
-#             'form': form
-#         })
 
 
 class AboutQuickLitView(TemplateView):
@@ -384,3 +352,30 @@ def custom_404(request, exception):
     """
     template_name = '404.html'
     return render(request, template_name, status=404)
+
+
+class EditStudyGroupView(View):
+    """
+    Gets the given sales ad then posts the new instance
+    of the SalesAd entry if the user is the seller
+    and redirects to the detail view of the edited ad
+    """
+    def get(self, request, slug):
+        study_group = get_object_or_404(StudyGroup, slug=slug)
+        form = NewStudyGroupForm(instance=study_group)
+        return render(request, 'edit_study_group.html', {'form': form})
+
+    def post(self, request, slug):
+        study_group = get_object_or_404(StudyGroup, slug=slug)
+        form = NewStudyGroupForm(request.POST, request.FILES, instance=study_group)
+        form.save()
+        new_members = form.cleaned_data['search_members']
+
+        if form.is_valid():
+            form.save()
+            for member in new_members:
+                study_group.members.add(member)
+                study_group.save()
+
+            return redirect('active_group', slug=slug)
+        return render(request, 'edit_study_group.html', {'form': form})
