@@ -24,6 +24,7 @@ urlpatterns = [
     path('edit/<slug:slug>/', views.EditSalesAdView.as_view(), name='editad'),
     path('delete/<slug:slug>/', views.DeleteAdView.as_view(), name='delete'),
     path('delete-group/<slug:slug>', views.DeleteStudyGroupView.as_view(), name='delete_group'),
+    path('delete-account/', views.DeleteAccountView.as_view(), name='delete_account'),
     path('<slug:slug>/', views.SalesAdDetail.as_view(), name='detail'),
 ]
 

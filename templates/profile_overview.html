@@ -47,12 +47,17 @@
             </div>
         </div>
         {% empty %}
-        <div class="row">
+        <div class="row justify-content-center text-center">
             <div class="col">
                 <p>You have no active sales ads, but feel free to navigate to "Make a sales ad" to make one!</p>
             </div>
         </div>
         {% endfor %}
+    </div>
+    <div class="row text-center mt-5 mb-4">
+        <div class="col mt-5">
+            <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete your account</a>
+        </div>
     </div>
 </div>
 {% endblock %}

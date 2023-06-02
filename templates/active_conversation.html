@@ -22,7 +22,7 @@
   {% if request.user.get_username == message.created_by.get_username %}
   <div class="row justify-content-end">
     <div class="col-md-7 col-lg-4">
-      <div class="d-flex justify-content-end h-">
+      <div class="d-flex justify-content-end">
         <p class="text-muted lh-1"> <strong>{{ message.created_by.username }}</strong> at {{ message.created_at }}</p>
       </div>
       <div class="bg-primary flex-fill bd-highlight rounded">

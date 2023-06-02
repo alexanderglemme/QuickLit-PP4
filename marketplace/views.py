@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 
 from .models import SalesAd, User, Conversation, StudyGroup
 from .forms import SignUpForm, NewAdForm, SalesAdForm, ConversationMessageForm, NewStudyGroupForm
@@ -379,3 +380,18 @@ class EditStudyGroupView(View):
 
             return redirect('active_group', slug=slug)
         return render(request, 'edit_study_group.html', {'form': form})
+
+
+class DeleteAccountView(LoginRequiredMixin, DeleteView):
+
+    template_name = 'delete_account.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        logout(request)
+
+        return response
