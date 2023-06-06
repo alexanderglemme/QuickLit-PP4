@@ -19,6 +19,14 @@ As an administrator, I want to be able to manage user accounts and listings.
 The Landing page features a hero section and a slogan, and displays the four newest items.
 ![landing page]( "Title Text 1")
 
+# Testing
+### Testing is an essential part of ensuring the functionality and stability of a Django project. As of now only manual testing has been performed, even though it is recommended to also incorporate automated tests for more comprehensive coverage. Here are the tests that have been conducted so far:
+
+1. User Registration and Login: Successfully registered new users and verified their ability to log in with the created credentials.
+2. 404 Page Handling: Checked that accessing invalid URLs directs users to the appropriate 404 error page.
+3. SalesAd Management: Tested the ability to delete SalesAd entries, both as a regular user and as a superuser. Verified that new SalesAd entries can be  created, edited and deleted by users and that placeholder images appear as intended when SalesAds are marked as sold and/or lack the users uploaded image.
+4. Study Group Management: Created Study Groups as a user and ensured the ability to edit and delete them. Verified that the chat functionality within Study Groups allows users to exchange messages successfully.
+5. Chat Functionality: Tested the chat functionality within Study Groups by creating Study Groups and exchanging messages between test users.
 
 # Deploying to Heroku
 ## To deploy QuickLit to Heroku, you will need to follow these steps:
