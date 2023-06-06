@@ -59,9 +59,7 @@ class SalesAdDetail(View):
     Gets a single ad
     """
     def get(self, request, slug, *args, **kwargs):
-        """
-        Gets a single ad
-        """
+
         queryset = SalesAd.objects.order_by('-created_on')
         sales_ad = get_object_or_404(queryset, slug=slug)
         template_name = 'sales_ad_detail.html'
@@ -347,19 +345,10 @@ class AboutQuickLitView(TemplateView):
     template_name = 'about.html'
 
 
-def custom_404(request, exception):
-    """
-    Handles HTTP 404 errors
-    """
-    template_name = '404.html'
-    return render(request, template_name, status=404)
-
-
 class EditStudyGroupView(View):
     """
-    Gets the given sales ad then posts the new instance
-    of the SalesAd entry if the user is the seller
-    and redirects to the detail view of the edited ad
+    View to add more users to a given study group and/or change group name
+    (slug stays the same though, and has the format of group name + when it was created)
     """
     def get(self, request, slug):
         study_group = get_object_or_404(StudyGroup, slug=slug)
@@ -383,6 +372,9 @@ class EditStudyGroupView(View):
 
 
 class DeleteAccountView(LoginRequiredMixin, DeleteView):
+    """
+    View for a confirmation page when a user deletes his or her account.
+    """
 
     template_name = 'delete_account.html'
     success_url = reverse_lazy('index')
@@ -395,3 +387,11 @@ class DeleteAccountView(LoginRequiredMixin, DeleteView):
         logout(request)
 
         return response
+
+
+def custom_404(request, exception):
+    """
+    HTTP 404 error view
+    """
+    template_name = '404.html'
+    return render(request, template_name, status=404)
