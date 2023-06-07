@@ -20,7 +20,7 @@
             <div class="card mb-4 shadow">
                 <div class="card-body">
                     <div class="card-img-top mb-3 px-3 rounded">
-                        {% if "placeholder" in ad.item_image.url %}
+                        {% if "placeholder" in ad.item_image.url and ad.sold == False %}
                         <img class="d-block w-100 card-img-top" alt="..." style="height: 12rem;"
                             src="https://res.cloudinary.com/dvwfilwf6/image/upload/v1682277085/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d_vha1q4.jpg">
                         {% elif ad.sold %}
