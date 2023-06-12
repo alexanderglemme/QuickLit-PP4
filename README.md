@@ -12,6 +12,14 @@ QuickLit is a Django-based web application that allows students to buy and sell 
     - [Goals](#goals)
     - [Relevant Context](#relevant-context)
 - [Usage](#usage)
+    - [Important message: Please read the Terms of Use!](#important-message-please-read-the-terms-of-use)
+    - [How to post a sales ad (and how to sign up and log in)](#how-to-post-a-sales-ad-and-how-to-sign-up-and-log-in)
+    - [How to read and update your sales ad](#how-to-read-and-update-your-sales-ad)
+    - [How to mark your ad as SOLD, and how to Delete](#how-to-mark-your-ad-as-sold-and-how-to-delete)
+    - [How to find and buy a book](#how-to-find-and-buy-a-book)
+    - [How to start a study group](#how-to-start-a-study-group)
+    - [How to navigate back to the home page after a 404 error](#how-to-navigate-back-to-the-home-page-after-a-404-error)
+    - [How to delete your account](#how-to-delete-your-account)
 - [User Stories](#user-stories)
 - [Testing](#testing)
 - [Documentation](#documentation)
@@ -49,6 +57,11 @@ The development of QuickLit was motivated by the challenges faced by students as
 Through QuickLit, students can save money on textbooks, connect with peers who are studying similar subjects, and benefit from collective knowledge sharing. Whether you are a buyer in search of course materials, a seller looking to declutter your bookshelf, someone that wants to join an exciting and dynamic study group or all of the above simultaneously, QuickLit provides a platform that simplifies the process and enhances the overall student experience.
 
 # Usage
+
+## Important message: Please read the Terms of Use!
+As you sign up to QuickLit you automatically agree that you acknowledge and accept to the Terms of Use. These terms are constantly located inside the footer of the website and are accessible throughout the entirety of the website. __See the video down below on how to access them:__
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/9b65d47e-75ba-4cb6-b33f-bad9c087e36a
+
 
 ## How to post a sales ad (and how to sign up and log in):
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/c6d3e95e-43c1-4561-bd3e-3f96d48a9852
