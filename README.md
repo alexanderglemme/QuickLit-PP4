@@ -60,6 +60,7 @@ Through QuickLit, students can save money on textbooks, connect with peers who a
 
 ## Important message: Please read the Terms of Use!
 As you sign up to QuickLit you automatically agree that you acknowledge and accept to the Terms of Use. These terms are constantly located inside the footer of the website and are accessible throughout the entirety of the website. __See the video down below on how to access them:__
+
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/9b65d47e-75ba-4cb6-b33f-bad9c087e36a
 
 
