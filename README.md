@@ -66,6 +66,12 @@ https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/80670a36-9443-4
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/97d856f0-ced7-400d-a61d-071f44e5c91f
 
 
+## How to start a study group:
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/f5d3d73d-1f59-4107-b5cc-0cd8921db73b
+
+
+## How to navigate back to the home page after a 404 error:
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/8a5ad38c-7f95-4b87-9d94-65def6a23568
 
 
 # User Stories
