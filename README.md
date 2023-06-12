@@ -20,7 +20,7 @@ QuickLit is a Django-based web application that allows students to buy and sell 
     - [How to start a study group](#how-to-start-a-study-group)
     - [How to navigate back to the home page after a 404 error](#how-to-navigate-back-to-the-home-page-after-a-404-error)
     - [How to delete your account](#how-to-delete-your-account)
-- [User Stories](#user-stories)
+- [Epics and User Stories](#epics)
 - [Testing](#testing)
 - [Documentation](#documentation)
 - [Deployment](#deployment)
@@ -90,35 +90,61 @@ https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/8a5ad38c-7f95-4
 ## How to delete your account:
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/57e9fffa-a9fc-4c9d-9f49-32e0b5758588
 
+# Epics
+The Epics and their corresponding User Stories listed down below are the ones that have been successfully implemented. Worth noting is that these are not included in the project section of the projects repo. This is due to the lack of experience in using this feature on my part, resulting in me writing them all down on pen and paper and then manually transcribing them into this readme file. Though this approach is not reccommended, since I am the sole creator and developer behind this project, this unorthodox approach has seemed to work out okay. If however this project was bigger, and included any collaborators, a more reliable and secure method would have chosen.
 
-# User Stories
-As a student, I want to search for specific textbooks or literature materials I need for my classes.
+## 1. Marketplace with full CRUD functionality
 
-As a student, I want to create an account and list textbooks or literature materials that I want to sell.
+This section describes the CRUD (Create, Read, Update, Delete) functionality for sales ads that were implemented in the QuickLit website. It includes the following user stories:
 
-As a student, I want to browse listings from other students to find the best deal for the textbooks or literature materials I need.
+### User Stories
 
-As a student, I want to buy textbooks or literature materials from other students and leave feedback on the transaction.
+1. **Create Sales Ad**: As a seller, I want to be able to create a sales ad for a textbook or course literature that I want to sell.
 
-As an administrator, I want to be able to manage user accounts and listings.
+2. **Update Sales Ad**: As a seller, I want to be able to update the details of my sales ad such as the book title, book author, price, description and location.
 
-# Features
-## Landing page:
-The Landing page features a hero section and a slogan, and displays the four newest items.
-![landing page]( "Title Text 1")
+3. **Delete Sales Ad**: As a seller, I want to be able to delete a sales ad once the item is sold or is no longer available.
+
+4. **Make Sales Ads unavailable without deleting them**: As a seller, I want to preliminarily take my sales ad down until the actual transaction has taken place without having to delete the actual sales ad and all of the conversations associated with it.
+
+4. **Search for Textbooks**: As a buyer, I want to be able to search for specific textbooks or course literature that I need for my classes.
+
+5. **View Sales Ad Details**: As a buyer, I want to be able to view the details of a sales ad, including the book title, author, price, description and location of the seller.
+
+6. **Contact Seller**: As a buyer, I want to be able to contact the seller directly to arrange a meet up, exchange shipping addresses or negotiate the price.
+
+7. **Manage Sales Ads**: As a site admin, I want to be able to manage my sales ads, including creating, editing, and deleting them if necessary.
+
+## 2. Study Group Feature
+
+This section describes the Study Group feature on the QuickLit website. It enables users to form study groups, and engage in discussions within said Study Groups. The feature includes the following user stories:
+
+### User Stories
+
+1. **Start a Study Group**: As a user, I want to be able to create a study group for a specific course or subject and interact with multiple users simultaniously.
+
+2. **Delete Study Groups**: As a user, I want to be able to delete a study group after it has expired its usefullness.
+
+3. **Add new users to a Study Group**: As a user, I want to be able to add a new member to the study group.
+
+4. **Post Messages and Discussions**: As a user, I want to be able to post messages and engage in discussions within a study group.
+
+5. **Receive Notifications**: As a user, I want to be able to receive notifications about new study group messages.
 
 # Testing
 Testing is an essential part of ensuring the functionality and stability of a Django project. As of now only manual testing has been performed, even though it is recommended to also incorporate automated tests for more comprehensive coverage. Here are the tests that have been conducted so far:
 
-__1. User Registration and Login:__ Successfully registered new users and verified their ability to log in with the created credentials.
+1. **User Registration and Login**: Successfully registered new users and verified their ability to log in with the created credentials.
 
-__2. 404 Page Handling:__ Checked that accessing invalid URLs directs users to the appropriate 404 error page.
+2. **404 Page Handling**: Checked that accessing invalid URLs directs users to the appropriate 404 error page.
 
-__3. SalesAd Management:__ Tested the ability to delete SalesAd entries, both as a regular user and as a superuser. Verified that new SalesAd entries can be  created, edited and deleted by users and that placeholder images appear as intended when SalesAds are marked as sold and/or lack the users uploaded image.
+3. **SalesAd Management**: Tested the ability to delete SalesAd entries, both as a regular user and as a superuser. Verified that new SalesAd entries can be  created, edited and deleted by users and that placeholder images appear as intended when SalesAds are marked as sold and/or lack the users uploaded image.
 
-__4. Study Group Management:__ Created Study Groups as a user and ensured the ability to edit and delete them. Verified that the chat functionality within Study Groups allows users to exchange messages successfully.
+4. **Study Group Management**: Created Study Groups as a user and ensured the ability to edit and delete them. Verified that the chat functionality within Study Groups allows users to exchange messages successfully.
 
-__5. Chat Functionality:__ Tested the chat functionality within Study Groups by creating Study Groups and exchanging messages between test users.
+5. **Chat Functionality**: Tested the chat functionality in both user Conversations and in Study Groups by creating and exchanging messages between different test users within both Study Groups and Conversations.
+
+6. **Account deletion**: Tested the account deletion mechanism. Effectively ensuring that all of the cascading delete functionality works as intended by deleting a registered test user that was a member in multiple Conversations and Study Groups, and had multiple active Sales Ads.
 
 # Deployment
 ## To deploy QuickLit to Heroku, you can follow these steps:
