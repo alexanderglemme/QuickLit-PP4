@@ -50,8 +50,22 @@ Through QuickLit, students can save money on textbooks, connect with peers who a
 
 # Usage
 
-## How to post a sales ad
+## How to post a sales ad (and how to sign up and log in):
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/c6d3e95e-43c1-4561-bd3e-3f96d48a9852
+
+
+## How to read and update your sales ad:
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/48456a43-6d84-4b4d-a18a-089f21a439e3
+
+
+## How to mark your ad as SOLD, and how to Delete:
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/80670a36-9443-472e-a2e6-190977aa312b
+
+
+## How find and buy a book:
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/97d856f0-ced7-400d-a61d-071f44e5c91f
+
+
 
 
 # User Stories
