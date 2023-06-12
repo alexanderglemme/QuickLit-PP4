@@ -50,6 +50,10 @@ Through QuickLit, students can save money on textbooks, connect with peers who a
 
 # Usage
 
+## How to post a sales ad
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/c6d3e95e-43c1-4561-bd3e-3f96d48a9852
+
+
 # User Stories
 As a student, I want to search for specific textbooks or literature materials I need for my classes.
 
