@@ -1,7 +1,8 @@
 # QuickLit - Your user-to-user Marketplace for Student Literature
-QuickLit is a Django-based web application that allows students to buy and sell used textbooks and other literature materials directly with each other. The application offers full CRUD functionality and user authentication to ensure secure access.
+QuickLit is a Django-based web application that allows students to buy and sell used textbooks and other literature materials directly with each other. The application offers full CRUD functionality and uses Djangos built in user authentication to ensure secure access.
 
 [Deployed project](https://quicklit-pp4.herokuapp.com/)
+
 [Project repo](https://github.com/alexanderglemme/QuickLit-PP4)
 
 # Table of Contents
@@ -159,8 +160,10 @@ __Potential Cause:__ This issue can arise when the static files (CSS, JS) are no
 __Solution:__ Consider the following steps:
 
 - Hard reload the page __(Hard reload on: Windows: CTRL + Shift + R, Mac: CMD + Shift + R)__ to ensure that the browsers cache is clean.
-- Verify that the static files are collected and stored properly by running the command python manage.py collectstatic.
+- If you are hosting your static files on an external hosting service (e.g, cloudinary), make sure that it's hooked up correctly in your settings.py file.
 - Check the file paths specified in the HTML templates to ensure they are correctly referencing the static files.
+- Check your config variables on heroku (if you're deploying on heroku), and make sure they're correctly set up.
+- Visit the hosting services website, log in, and look for potential causes as to why your static files are not being accessed in your project.
 - Ensure that the Django settings properly define the static files directories and their corresponding URLs.
 
 ## 3. Database Integrity Error: ForeignKey constraint violation
