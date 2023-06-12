@@ -171,7 +171,7 @@ class NewConversationView(LoginRequiredMixin, CreateView):
         conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
 
         if conversations:
-            return redirect('active', ad_pk)
+            return redirect('inbox')
 
         form = ConversationMessageForm()
 
@@ -188,7 +188,7 @@ class NewConversationView(LoginRequiredMixin, CreateView):
         conversations = Conversation.objects.filter(ad=ad).filter(members__in=[request.user.id])
 
         if conversations:
-            return redirect('active', ad_pk)
+            return redirect('inbox')
 
         form = ConversationMessageForm(request.POST)
 
