@@ -62,7 +62,7 @@ https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/48456a43-6d84-4
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/80670a36-9443-472e-a2e6-190977aa312b
 
 
-## How find and buy a book:
+## How to find and buy a book:
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/97d856f0-ced7-400d-a61d-071f44e5c91f
 
 
@@ -72,6 +72,10 @@ https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/f5d3d73d-1f59-4
 
 ## How to navigate back to the home page after a 404 error:
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/8a5ad38c-7f95-4b87-9d94-65def6a23568
+
+
+## How to delete your account:
+https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/57e9fffa-a9fc-4c9d-9f49-32e0b5758588
 
 
 # User Stories
