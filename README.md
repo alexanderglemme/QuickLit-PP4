@@ -30,9 +30,6 @@ QuickLit is a Django-based web application that allows students to buy and sell 
     - [Login Failure: "Invalid credentials" error](#1-login-failure-invalid-credentials-error)
     - [Broken Page Layout: Missing CSS or JS files](#2-broken-page-layout-missing-css-or-js-files)
     - [Database Integrity Error: ForeignKey constraint violation](#3-database-integrity-error-foreignkey-constraint-violation) 
-- [Support and Contact](#support-and-contact)
-- [Contributing](#contributing)
-- [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 # Background, Purpose, Goals and Context
@@ -172,7 +169,7 @@ Testing is an essential part of ensuring the functionality and stability of a Dj
 # Dependencies
 ## QuickLit requires the following dependencies:
 
-- Python 3.8+
+- Python 3.1.3+
 - Django 3.1+
 - PostgreSQL
 - Cloudinary
@@ -192,25 +189,25 @@ To clarify that I am aware of the risks with this approach, I have listed some w
 
 ### Why using CDNs is not recommended for prod:
 
-__1. Dependency and version control:__ When using CDN delivery links, your project relies on external codebases. This means that you're introducing a dependency on those external services. If the CDN goes down or the link becomes invalid, it could break the project and/or disrupt its functionality. Also, you have limited control over the versions of the code delivered via the CDN, which can lead to compatibility issues or unexpected behavior if updates or changes are made. This is espacially worth noting if you're reliant on multiple CDNs and other external dependencies.
+__1. Dependency and version control:__ When using CDN delivery links, your project relies on external codebases. This means that you're introducing a dependency on those external services. If the CDN were to go down or the link becomes invalid, it could break the project and/or disrupt its functionality. Also, you have limited control over the versions of the code delivered via the CDN, which can lead to compatibility issues or unexpected bugs if updates or changes are made. This is espacially worth noting if you're reliant on multiple CDNs and other external dependencies.
 
-__2. Security concerns:__ By relying on external CDN links, you're essentially trusting the content provided by that particular CDN. While most reputable CDNs have extensive security measures in place, there is always a risk of compromised or malicious code being delivered through the CDN. This could potentially introduce vulnerabilities or security risks to your project and/or the end users.
+__2. Security concerns:__ By relying on external CDN links, you're essentially trusting the content provided by that particular CDN. While basically every reputable CDN provider have extensive security measures in place, there is always a small risk of compromised or malicious code being delivered through the CDN. This could potentially introduce vulnerabilities or security risks to your project and/or the end users.
 
 __3. Performance impact:__ While CDNs are designed to improve performance by delivering content from geographically distributed servers, relying on external CDN links could to the contrary also introduce some extra latency. If the CDN experiences issues or if the users network connectivity is lacking, it can negatively impact the loading time and overall performance of your project.
 
 ### Why someone might still choose to use CDNs:
 
-__1. Ease of implementation:__ Using a CDN delivery link is convenient and straightforward to integrate in your project. It allows you to quickly integrate third-party libraries or resources into your project without having to host the files yourself or manage their updates. This can save time and effort both during and after development. 
+__1. Ease of implementation:__ Using a CDN delivery link is convenient and easy to integrate in your project. It allows you to quickly integrate any third-party libraries or resources into your project without having to host the files yourself and/or manage their updates. This can save time and effort both during and after development. 
 
 __2. Potential bandwidth and server load reduction:__ By leveraging CDNs, you can offload the delivery of static files to external servers, effectively reducing the bandwidth and server load on your own infrastructure. This can be particularly useful when dealing with high traffic or large files, as CDNs are optimized for efficient content delivery.
 
-__3. Access to the latest updates:__ CDNs often update their libraries or resources automatically, though this easily can become an issue, it ensures that you have access to the latest versions without having to manually update your project. This can be beneficial in terms of bug fixes, performance improvements, and new features.
+__3. Access to the latest updates:__ CDNs often update their libraries or resources "automatically". Though this could potentially become an issue, it also ensures that you have access to the latest versions without having to manually update your project. This can be beneficial in terms of bug fixes, performance improvements, and new features.
 
 # Troubleshooting: Common Bugs and Fixes
 During the development of this project, the following common bugs has appeared and have been fixed:
 
 ## 1. Login Failure: "Invalid credentials" error
-Symptoms: When attempting to log in, users may receive an "Invalid credentials" error message even with correct login information.
+__Symptoms:__ When attempting to log in, users may receive an "Invalid credentials" error message even with correct login information.
 
 __Potential Cause:__ This issue can occur due to incorrect authentication settings or a mismatch between the entered credentials and those stored in the database.
 
@@ -245,5 +242,35 @@ __Solution:__ Consider the following steps:
 - If using Django's built-in ORM, make use of the on_delete parameter when defining the foreign key fields to specify the desired cascading behavior (e.g., models.ForeignKey(..., on_delete=models.CASCADE)).
 - Ensure that any related objects are properly handled before deleting the associated object (e.g., deleting all Study Group members before deleting a Study Group).
 
-# Contributing
-### Contributions to QuickLit are welcome! If you would like to contribute, please open a pull request on GitHub and I will review it when I have time to do so.
+## 4. TextField data not displaying linebreaks:
+__Symptoms:__ Users may encounter that the data they initially entered isn't displayed the way that they've intended it to, more specifically, the data may lack linebreaks as intially desired.
+
+__Potential Cause:__ The issue can occur when fetching the data from the database and injecting it to the front end. This is due to a difference in linebreak syntax between the two ends (Linebreaks are represented as: "\n" in the back end, and as: "<br>" in the front end).
+
+__Solution:__ When displaying the data in the front end make sure to filter the data with the "|linebreaksbr" filter in the template like so:
+-   <p>{{ ad.description|linebreaksbr }}</p>
+- or like so: {{ message.content|linebreaksbr }}
+
+
+# Acknowledgments
+When researching different ideas on what to make out of this project I stumbled upon [this walkthrough project](https://www.youtube.com/watch?v=ZxMB6Njs3ck&t=6483s) from freeCodeCamp. Though this project has very few similarities to QuickLit, the general idea of a user-to-user marketplace was borrowed from it. Also, some of the core elements and logic behind the models and views have been borrowed from this tutorial as well (i.e the ConversationModel, ConversationMessageModel and partially the SalesAdModel), but never copied. In the walkthrough, all of the views are function based. So to ensure originality in QuickLit, all of the borrowed views where rewritten into class based views which in essence makes them uniquelly different compared to the function based views of the walkthrough eventhough they perform the same logic.
+
+I have also used Code Institutes Django Blog walkthrough project as a resource, especially when getting set up, and when designing the admin panel.
+
+Other than these I have at times turned to stackoverflow for code snippets that I have implemented in my own unique way. An example of such a snippet is the slugify function in the SalesAdModel:
+´´´
+# Makes unique slug using title and time when created
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title + "-" + str(self.created_on))
+
+        return super().save(*args, **kwargs)
+
+´´´
+
+I have at times accessed the [Django documentation](https://docs.djangoproject.com/en/4.2/), more specifically regarding [template syntax](https://docs.djangoproject.com/en/4.2/topics/templates/#syntax) and [queries](https://docs.djangoproject.com/en/4.2/topics/db/queries/). An example of such syntax is when I implemented the linebreaksbr filter to make the conversation messages display linebreaks in the front end like so:
+´´´
+{{ message.content|linebreaksbr }}
+
+´´´
+or the .all, .first and .last methods when working with ManyToManyFields in a given template.
