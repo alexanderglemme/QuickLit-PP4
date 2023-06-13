@@ -248,8 +248,8 @@ __Symptoms:__ Users may encounter that the data they initially entered isn't dis
 __Potential Cause:__ The issue can occur when fetching the data from the database and injecting it to the front end. This is due to a difference in linebreak syntax between the two ends (Linebreaks are represented as: "\n" in the back end, and as: "<br>" in the front end).
 
 __Solution:__ When displaying the data in the front end make sure to filter the data with the "|linebreaksbr" filter in the template like so:
--   <p>{{ ad.description|linebreaksbr }}</p>
-- or like so: {{ message.content|linebreaksbr }}
+-   `<p>{{ ad.description|linebreaksbr }}</p>`
+- or like so: `{{ message.content|linebreaksbr }}`
 
 
 # Acknowledgments
@@ -257,20 +257,21 @@ When researching different ideas on what to make out of this project I stumbled 
 
 I have also used Code Institutes Django Blog walkthrough project as a resource, especially when getting set up, and when designing the admin panel.
 
-Other than these I have at times turned to stackoverflow for code snippets that I have implemented in my own unique way. An example of such a snippet is the slugify function in the SalesAdModel:
-´´´
+I have at times turned to stackoverflow for code snippets that I have implemented in my own unique way. An example of such a snippet is the slugify function in the SalesAdModel:
+
+```
 # Makes unique slug using title and time when created
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title + "-" + str(self.created_on))
 
         return super().save(*args, **kwargs)
+```
 
-´´´
 
 I have at times accessed the [Django documentation](https://docs.djangoproject.com/en/4.2/), more specifically regarding [template syntax](https://docs.djangoproject.com/en/4.2/topics/templates/#syntax) and [queries](https://docs.djangoproject.com/en/4.2/topics/db/queries/). An example of such syntax is when I implemented the linebreaksbr filter to make the conversation messages display linebreaks in the front end like so:
-´´´
-{{ message.content|linebreaksbr }}
 
-´´´
-or the .all, .first and .last methods when working with ManyToManyFields in a given template.
+`{{ message.content|linebreaksbr }}`
+
+
+or the `.all`, `.first`, `.last` and `user.is_authenticated` methods when working with ManyToManyFields in a given template.
