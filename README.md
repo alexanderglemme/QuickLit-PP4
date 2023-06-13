@@ -126,7 +126,14 @@ The QuickLit blue also gives a very small yet eye pleasing contrast to Bootstrap
 
 # Data Schema
 The data schema of the models in the DB is quite simple to follow. To do this I have illustrated it in a flow chart using Figma:
+`(FK=ForeignKey, r_n=related_name, CF=CharField, TF=TextField, DTF=DateTimeField, M2MF=ManyToManyField, User=User model, Conversation=Conversation model)`
 
+![Skärmbild 2023-06-13 162021](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/c7e74571-b0f7-400d-9e45-6af9bdd856b0)
+
+- The User model is the Django default user model.
+- The SalesAd model is the model used to contain the data about the book and who created it.
+- The Conversation model is the model acting as a link between the ad, the members and their sent ConversationMessages that are associated to a certain ad and conversation.
+- The StudyGroup model is as you see in the chart, a link between users, and has it's own slug, sort of acting like both an ad and a Conversation simultaniously. - - Since the ConversationMessage model just contains messages and study_group_messages which are linked to different users, ads and study groups, it gets used in both the Conversation and StudyGroup feature. This also makes it harder for the admin to access specifik messages, as their entries are hard to identify, making them slightly more private than if they where just linked to one other model.
 
 # Epics
 The Epics and their corresponding User Stories listed down below are the ones that have been successfully implemented. Worth noting is that these are not included in the project section of the projects repo. This is due to lack of experience in using this feature on my part, resulting in me writing them all down on pen and paper and then manually transcribing them into this readme file. Though this approach is not reccommended, since I am the sole creator and developer behind this project, this unorthodox approach has seemed to work out okay. If however this project was bigger, and included any collaborators, a more reliable and secure method would have been chosen.
