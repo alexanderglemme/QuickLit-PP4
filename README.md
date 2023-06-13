@@ -20,6 +20,11 @@ QuickLit is a Django-based web application that allows students to buy and sell 
     - [How to start a study group](#how-to-start-a-study-group)
     - [How to navigate back to the home page after a 404 error](#how-to-navigate-back-to-the-home-page-after-a-404-error)
     - [How to delete your account](#how-to-delete-your-account)
+- [Design Choices](#design-choices)
+    - [The layout of the website](#the-layout-of-the-website)
+    - [Original wireframes](#original-wireframes)
+    - [Final color scheme](#final-color-scheme)
+- [Data Schema](#data-schema)
 - [Epics and User Stories](#epics)
 - [Testing](#testing)
 - [Documentation](#documentation)
@@ -59,7 +64,7 @@ Through QuickLit, students can save money on textbooks, connect with peers who a
 # Usage
 
 ## Important message: Please read the Terms of Use!
-As you sign up to QuickLit you automatically agree that you acknowledge and accept to the Terms of Use. These terms are constantly located inside the footer of the website and are accessible throughout the entirety of the website. __See the video down below on how to access them:__
+As you sign up to QuickLit you automatically agree that you acknowledge and accept the Terms of Use. These terms are constantly located inside the footer of the website and are accessible throughout the entirety of the website. __See the video down below on how and where to access them:__
 
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/9b65d47e-75ba-4cb6-b33f-bad9c087e36a
 
@@ -91,14 +96,46 @@ https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/8a5ad38c-7f95-4
 ## How to delete your account:
 https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/57e9fffa-a9fc-4c9d-9f49-32e0b5758588
 
+# Design choices
+## The layout of the website
+I chose to go with the most intuitive approach I could think of when designing the layout of the website, just to invoke a feeling of simplicity. This is for instance why there's no elaborate filters in the "Search for books" page, and also why conversations and study groups are displayed as blocks in the inbox. It gives the user a fresheshing sense of calm, especially being that the predicted user of QuickLit most likely is a student who probably has had his or her nose stuck in different diagrams and data tables before visiting QuickLit. Also, QuickLits design is meant to be a kind of polar opposite to the student platform "Canvas" where I myself have spent a lot of time with squinting eyes.
+
+## Original wireframes
+Eventhough the finished layout and color scheme of the website differs massively from the original wireframes that were made during the planning fase of the project, they served as a rough cut of what to build and where. They were all made in Figma:
+
+![Skärmbild 2023-06-13 151827](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/202e57ba-aaea-4214-92f6-5d74090aaa4f)
+
+## Final color scheme
+When designing the website I chose to go with bright light colors as they made sense in the context of textbooks and course literature. If one looks at the ads on the home page for instance, they're images all seem to align with the overall vibe of the website, eventhough they're massivelly different. This is a function of the background color of the website being bright white which also highlights the shadow behind the cards to make them stand out from the page itself. If they were to appear flat on the background they would be indulged in the websites layout itself, and would therefore have to contend with their surroundings. This is a well documented psychological and cognitive effect/illusion which occurs when percieving shadowed objects, and is used throughout the world wide web.
+
+The official QuickLit color, which is featured in the navbar and in the favicon is this one:
+
+![Skärmbild 2023-06-13 150500](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/9e47ab69-aede-43be-a8f7-18c67382c5d5)
+
+along with:
+
+![Skärmbild 2023-06-13 150852](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/a5047021-5428-4189-9620-11c4f3139580)
+
+making up for the logo, which colors are present throughout the website:
+
+![Skärmbild 2023-06-13 152048](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/47dc527e-c67b-4bf7-836a-4471ba5e9918)
+
+The QuickLit blue also gives a very small yet eye pleasing contrast to Bootstrap 5s "bg-primary" in the navbar like so (especially when combined with the shadow class):
+
+![Skärmbild 2023-06-13 151222](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/46fd32d5-ff54-4188-bf13-641bb6ffc8d9)
+
+# Data Schema
+The data schema of the models in the DB is quite simple to follow. To do this I have illustrated it in a flow chart using Figma:
+
+
 # Epics
-The Epics and their corresponding User Stories listed down below are the ones that have been successfully implemented. Worth noting is that these are not included in the project section of the projects repo. This is due to the lack of experience in using this feature on my part, resulting in me writing them all down on pen and paper and then manually transcribing them into this readme file. Though this approach is not reccommended, since I am the sole creator and developer behind this project, this unorthodox approach has seemed to work out okay. If however this project was bigger, and included any collaborators, a more reliable and secure method would have been chosen.
+The Epics and their corresponding User Stories listed down below are the ones that have been successfully implemented. Worth noting is that these are not included in the project section of the projects repo. This is due to lack of experience in using this feature on my part, resulting in me writing them all down on pen and paper and then manually transcribing them into this readme file. Though this approach is not reccommended, since I am the sole creator and developer behind this project, this unorthodox approach has seemed to work out okay. If however this project was bigger, and included any collaborators, a more reliable and secure method would have been chosen.
 
 ## 1. Marketplace with full CRUD functionality
 
-This section describes the CRUD (Create, Read, Update, Delete) functionality for sales ads that were implemented in the QuickLit website. It includes the following user stories:
+This section describes the CRUD (Create, Read, Update, Delete) functionality for sales ads that were implemented in the QuickLit website. The Epic includes the following user stories:
 
-### User Stories
+### User Stories:
 
 1. **Create Sales Ad**: As a seller, I want to be able to create a sales ad for a textbook or course literature that I want to sell.
 
@@ -114,15 +151,15 @@ This section describes the CRUD (Create, Read, Update, Delete) functionality for
 
 6. **Contact Seller**: As a buyer, I want to be able to contact the seller directly to arrange a meet up, exchange shipping addresses or negotiate the price.
 
-7. **Manage Sales Ads**: As a site admin, I want to be able to manage my sales ads, including creating, editing, and deleting them if necessary.
+7. **Manage Sales Ads**: As a site admin, I want to be able to manage any or all sales ads, including creating, editing, and deleting them if necessary.
 
 ## 2. Study Group Feature
 
 This section describes the Study Group feature on the QuickLit website. It enables users to form study groups, and engage in discussions within said Study Groups. The feature includes the following user stories:
 
-### User Stories
+### User Stories:
 
-1. **Start a Study Group**: As a user, I want to be able to create a study group for a specific course or subject and interact with multiple users simultaniously.
+1. **Start a Study Group**: As a user, I want to be able to create a study group for a specific course, project or subject and interact with multiple users simultaniously.
 
 2. **Delete Study Groups**: As a user, I want to be able to delete a study group after it has expired its usefullness.
 
@@ -166,8 +203,8 @@ Testing is an essential part of ensuring the functionality and stability of a Dj
 2. Clone your forked version of the QuickLit project to your local machine.
 3. Create a virtual environment for the project.
 4. Install the project dependencies using pip.
-5. Set up the database using Django's migrate command.
-6. Start the development server using Django's runserver command.
+5. Set up the database using Django's migrate command `python3 manage.py makemigrations` and `python3 manage.py migrate`.
+6. Start the development server using Django's runserver command `python3 manage.py runserver`.
 
 # Dependencies
 ## QuickLit requires the following dependencies:
@@ -251,6 +288,7 @@ __Symptoms:__ Users may encounter that the data they initially entered isn't dis
 __Potential Cause:__ The issue can occur when fetching the data from the database and injecting it to the front end. This is due to a difference in linebreak syntax between the two ends (Linebreaks are represented as: "\n" in the back end, and as: "<br>" in the front end).
 
 __Solution:__ When displaying the data in the front end make sure to filter the data with the "|linebreaksbr" filter in the template like so:
+
 -   `<p>{{ ad.description|linebreaksbr }}</p>`
 - or like so: `{{ message.content|linebreaksbr }}`
 
@@ -265,7 +303,6 @@ __Solution:__ There are a couple of different approaches to solving this problem
 - When creating the sign up form, explicitly ask the user for their local timezone, and display their particular time by accessing their user model from inside the template when ever a timestamp is meant to be shown to the user. To do this you first have to make a custom user model which has a timezone field.
 - Configure the timezone according to where your main user demographic is located (as done in this project), by first setting the `USE_TZ` variable to `False` and then setting the `TIME_ZONE` variable to the timezone of your largest user demographic (in this case `Europe/Berlin` as Sweden is the main place of operation for QuickLit and is located in the same timezone of UTC+2).
 - Implement [this](https://github.com/adamcharnock/django-tz-detect) timezone detector, which detects the users local timezone what/where ever it may be.
-
 
 # Acknowledgments
 When researching different ideas on what to make out of this project I stumbled upon [this walkthrough project](https://www.youtube.com/watch?v=ZxMB6Njs3ck&t=6483s) from freeCodeCamp. Though this project has very few similarities to QuickLit, the general idea of a user-to-user marketplace was borrowed from it. Also, some of the core elements and logic behind the models and views have been borrowed from this tutorial as well (i.e the ConversationModel, ConversationMessageModel and partially the SalesAdModel), but never copied. In the walkthrough, all of the views are function based. So to ensure originality in QuickLit, all of the borrowed views where rewritten into class based views which in essence makes them uniquelly different compared to the function based views of the walkthrough eventhough they perform the same logic.
@@ -284,6 +321,10 @@ I have at times turned to stackoverflow for code snippets that I have implemente
 ```
 
 
-I have at times accessed the [Django documentation](https://docs.djangoproject.com/en/4.2/), more specifically regarding [template syntax](https://docs.djangoproject.com/en/4.2/topics/templates/#syntax) and [queries](https://docs.djangoproject.com/en/4.2/topics/db/queries/). An example of such syntax is when I implemented the linebreaksbr filter to make the conversation messages display linebreaks in the front end like so:
+I have at times accessed the [Django documentation](https://docs.djangoproject.com/en/4.2/), more specifically regarding [template syntax](https://docs.djangoproject.com/en/4.2/topics/templates/#syntax) and [queries](https://docs.djangoproject.com/en/4.2/topics/db/queries/). An example of such syntax is when I implemented the `|linebreaksbr` filter to make the conversation messages display linebreaks in the front end like so:
 
-`{{ message.content|linebreaksbr }}` or the `.all`, `.first`, `.last` and `user.is_authenticated` methods when working with ManyToManyFields in a given template.
+`{{ message.content|linebreaksbr }}` or the `.all`, `.first`, `.last` and `user.is_authenticated` methods when working with ManyToManyFields and User specific features in a given template.
+
+The navbar for QuickLit was derived from Bootstrap 5s example navbar in their navbar documentation, which you can find [here](https://getbootstrap.com/docs/4.0/components/navbar/).
+
+The paginator in the "Search for books" page was also derived off of Bootstrap 5s paginator examples, which you can find [here](https://getbootstrap.com/docs/4.0/components/pagination/).
