@@ -29,7 +29,10 @@ QuickLit is a Django-based web application that allows students to buy and sell 
 - [Troubleshooting](#troubleshooting-common-bugs-and-fixes)
     - [Login Failure: "Invalid credentials" error](#1-login-failure-invalid-credentials-error)
     - [Broken Page Layout: Missing CSS or JS files](#2-broken-page-layout-missing-css-or-js-files)
-    - [Database Integrity Error: ForeignKey constraint violation](#3-database-integrity-error-foreignkey-constraint-violation) 
+    - [Database Integrity Error: ForeignKey constraint violation](#3-database-integrity-error-foreignkey-constraint-violation)
+    - [TextField data not displaying linebreaks](#textfield-data-not-displaying-linebreaks)
+- [Unfixed Bugs](#unfixed-bugs)
+    - [Displaying the wrong time](#displaying-the-wrong-time)
 - [Acknowledgments](#acknowledgments)
 
 # Background, Purpose, Goals and Context
@@ -251,6 +254,18 @@ __Solution:__ When displaying the data in the front end make sure to filter the 
 -   `<p>{{ ad.description|linebreaksbr }}</p>`
 - or like so: `{{ message.content|linebreaksbr }}`
 
+# Unfixed Bugs:
+
+## 1. Displaying the wrong time:
+__Symptoms:__ Users may encounter timestamps that are not directly correlated to their own local time when creating entries.
+
+__Potential Cause:__ The issue can occur as a result of the `TIME_ZONE` configuration in the Django apps settings.py file.
+
+__Solution:__ There are a couple of different approaches to solving this problem, but one could consider the following steps:
+- When creating the sign up form, explicitly ask the user for their local timezone, and display their particular time by accessing their user model from inside the template when ever a timestamp is meant to be shown to the user. To do this you first have to make a custom user model which has a timezone field.
+- Configure the timezone according to where your main user demographic is located (as done in this project), by first setting the `USE_TZ` variable to `False` and then setting the `TIME_ZONE` variable to the timezone of your largest user demographic (in this case `Europe/Berlin` as Sweden is the main place of operation for QuickLit and is located in the same timezone of UTC+2).
+- Implement [this](https://github.com/adamcharnock/django-tz-detect) timezone detector, which detects the users local timezone what/where ever it may be.
+
 
 # Acknowledgments
 When researching different ideas on what to make out of this project I stumbled upon [this walkthrough project](https://www.youtube.com/watch?v=ZxMB6Njs3ck&t=6483s) from freeCodeCamp. Though this project has very few similarities to QuickLit, the general idea of a user-to-user marketplace was borrowed from it. Also, some of the core elements and logic behind the models and views have been borrowed from this tutorial as well (i.e the ConversationModel, ConversationMessageModel and partially the SalesAdModel), but never copied. In the walkthrough, all of the views are function based. So to ensure originality in QuickLit, all of the borrowed views where rewritten into class based views which in essence makes them uniquelly different compared to the function based views of the walkthrough eventhough they perform the same logic.
@@ -271,7 +286,4 @@ I have at times turned to stackoverflow for code snippets that I have implemente
 
 I have at times accessed the [Django documentation](https://docs.djangoproject.com/en/4.2/), more specifically regarding [template syntax](https://docs.djangoproject.com/en/4.2/topics/templates/#syntax) and [queries](https://docs.djangoproject.com/en/4.2/topics/db/queries/). An example of such syntax is when I implemented the linebreaksbr filter to make the conversation messages display linebreaks in the front end like so:
 
-`{{ message.content|linebreaksbr }}`
-
-
-or the `.all`, `.first`, `.last` and `user.is_authenticated` methods when working with ManyToManyFields in a given template.
+`{{ message.content|linebreaksbr }}` or the `.all`, `.first`, `.last` and `user.is_authenticated` methods when working with ManyToManyFields in a given template.
