@@ -162,7 +162,7 @@ The data schema of the models in the DB is quite simple to follow. To do this I 
 ![Skärmbild 2023-06-13 162021](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/c7e74571-b0f7-400d-9e45-6af9bdd856b0)
 
 - The User model is the Django default user model.
-- The SalesAd model is the model used to contain the data about the book and who created it.
+- The SalesAd model is the model used to contain the data about the book and who created it. The SalesAd model also features a cloudinary field which enables users to upload images which get hosted on cloudinary.
 - The Conversation model is the model acting as a link between the ad, the members and their sent ConversationMessages that are associated to a certain ad and conversation.
 - The StudyGroup model is as you see in the chart, creating a relationship between users, and has it's own slug, sort of acting like both an ad and a Conversation simultaniously.
 - Since the ConversationMessage model just contains messages and study_group_messages which are linked to different users, ads and study groups, it gets used in both the Conversation and StudyGroup feature. This also makes it harder for the admin to access specifik messages, as their entries are hard to identify, making them slightly more private than if they where just linked to one other model.
