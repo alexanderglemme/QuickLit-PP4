@@ -24,6 +24,8 @@ QuickLit is a Django-based web application that allows students to buy and sell 
     - [The layout of the website](#the-layout-of-the-website)
     - [Original wireframes](#original-wireframes)
     - [Final color scheme](#final-color-scheme)
+    - [Font styles](#font-styles)
+    - [Scroll bar styling](#scroll-bar-styling)
 - [Data Schema](#data-schema)
 - [Epics, User Stories and Tasks](#epics)
     - [Marketplace with full CRUD functionality](#1-marketplace-with-full-crud-functionality)
@@ -124,6 +126,34 @@ making up for the logo, which colors are present throughout the website:
 The QuickLit blue also gives a very small yet eye pleasing contrast to Bootstrap 5s "bg-primary" in the navbar like so (especially when combined with the shadow class):
 
 ![Skärmbild 2023-06-13 151222](https://github.com/alexanderglemme/QuickLit-PP4/assets/113175237/46fd32d5-ff54-4188-bf13-641bb6ffc8d9)
+
+## Font styles
+The font styles used by QuickLit are the google fonts: Jomolhari and Monteserrat, which complement each other nicely with their slight differences in edgyness contra smootheness.
+
+## Scroll bar styling
+QuickLit also feature a custom styled scroll bar. The custom style rules for the scrollbar are located at ./static/css/style.css and are as follows:
+```
+/* Scrollbar styling for Chrome and Safari, also works for Firefox and Edge v.79 and onward */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #b9b7b7;
+    border-radius: 10px;
+  }
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+```
 
 # Data Schema
 The data schema of the models in the DB is quite simple to follow. To do this I have illustrated it in a flow chart using Figma:
