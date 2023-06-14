@@ -25,19 +25,20 @@ QuickLit is a Django-based web application that allows students to buy and sell 
     - [Original wireframes](#original-wireframes)
     - [Final color scheme](#final-color-scheme)
 - [Data Schema](#data-schema)
-- [Epics and User Stories](#epics)
+- [Epics, User Stories and Tasks](#epics)
+    - [Marketplace with full CRUD functionality](#1-marketplace-with-full-crud-functionality)
+    - [Study Group Feature](#2-study-group-feature)
 - [Testing](#testing)
-- [Documentation](#documentation)
 - [Deployment](#deployment)
 - [Dependencies](#dependencies)
     - [External Resources and CDNs](#external-resources-and-cdns)
-- [Troubleshooting](#troubleshooting-common-bugs-and-fixes)
+- [Troubleshooting: Common Bugs and Fixes](#troubleshooting-common-bugs-and-fixes)
     - [Login Failure: "Invalid credentials" error](#1-login-failure-invalid-credentials-error)
     - [Broken Page Layout: Missing CSS or JS files](#2-broken-page-layout-missing-css-or-js-files)
     - [Database Integrity Error: ForeignKey constraint violation](#3-database-integrity-error-foreignkey-constraint-violation)
-    - [TextField data not displaying linebreaks](#textfield-data-not-displaying-linebreaks)
+    - [TextField data not displaying linebreaks](#4-textfield-data-not-displaying-linebreaks)
 - [Unfixed Bugs](#unfixed-bugs)
-    - [Displaying the wrong time](#displaying-the-wrong-time)
+    - [Displaying the wrong time](#1-displaying-the-wrong-time)
 - [Acknowledgments](#acknowledgments)
 
 # Background, Purpose, Goals and Context
@@ -133,7 +134,8 @@ The data schema of the models in the DB is quite simple to follow. To do this I 
 - The User model is the Django default user model.
 - The SalesAd model is the model used to contain the data about the book and who created it.
 - The Conversation model is the model acting as a link between the ad, the members and their sent ConversationMessages that are associated to a certain ad and conversation.
-- The StudyGroup model is as you see in the chart, a link between users, and has it's own slug, sort of acting like both an ad and a Conversation simultaniously. - - Since the ConversationMessage model just contains messages and study_group_messages which are linked to different users, ads and study groups, it gets used in both the Conversation and StudyGroup feature. This also makes it harder for the admin to access specifik messages, as their entries are hard to identify, making them slightly more private than if they where just linked to one other model.
+- The StudyGroup model is as you see in the chart, creating a relationship between users, and has it's own slug, sort of acting like both an ad and a Conversation simultaniously.
+- Since the ConversationMessage model just contains messages and study_group_messages which are linked to different users, ads and study groups, it gets used in both the Conversation and StudyGroup feature. This also makes it harder for the admin to access specifik messages, as their entries are hard to identify, making them slightly more private than if they where just linked to one other model.
 
 # Epics
 The Epics and their corresponding User Stories listed down below are the ones that have been successfully implemented. Worth noting is that these are not included in the project section of the projects repo. This is due to lack of experience in using this feature on my part, resulting in me writing them all down on pen and paper and then manually transcribing them into this readme file. Though this approach is not reccommended, since I am the sole creator and developer behind this project, this unorthodox approach has seemed to work out okay. If however this project was bigger, and included any collaborators, a more reliable and secure method would have been chosen.
@@ -146,19 +148,64 @@ This section describes the CRUD (Create, Read, Update, Delete) functionality for
 
 1. **Create Sales Ad**: As a seller, I want to be able to create a sales ad for a textbook or course literature that I want to sell.
 
+    **_Tasks:_**
+
+      - Design and implement a form for sellers to input the details of the sales ad (book title, author, price, description, location).
+      - Create a DB model to store the sales ads information.
+      - Implement backend logic for the creation of a new sales ad and save it to the database.
+
 2. **Update Sales Ad**: As a seller, I want to be able to update the details of my sales ad such as the book title, book author, price, description and location.
+
+    **_Tasks:_**
+
+      - Design and implement a form for sellers to edit the details of their sales ad.
+      - Update the database model and backend logic to make the update of a sales ad and save the changes to DB.
 
 3. **Delete Sales Ad**: As a seller, I want to be able to delete a sales ad once the item is sold or is no longer available.
 
+    **_Tasks:_**
+
+      - Add a delete ad button and functionality to the sales ads detail page.
+      - Implement backend logic to delete the sales ad from DB.
+
 4. **Make Sales Ads unavailable without deleting them**: As a seller, I want to preliminarily take my sales ad down until the actual transaction has taken place without having to delete the actual sales ad and all of the conversations associated with it.
 
-4. **Search for Textbooks**: As a buyer, I want to be able to search for specific textbooks or course literature that I need for my classes.
+    **_Tasks:_**
 
-5. **View Sales Ad Details**: As a buyer, I want to be able to view the details of a sales ad, including the book title, author, price, description and location of the seller.
+      - Add a boolean sold field to the sales ad model to indicate whether it is available or unavailable for purchase.
+      - Update frontend and backend logic to handle the sold status of a given sales ad.
+      - Implement the necessary UI changes to reflect the availability status of the sales ad (maybe placeholder image of SOLD?).
 
-6. **Contact Seller**: As a buyer, I want to be able to contact the seller directly to arrange a meet up, exchange shipping addresses or negotiate the price.
+5. **Search for Textbooks**: As a buyer, I want to be able to search for specific textbooks or course literature that I need for my classes.
 
-7. **Manage Sales Ads**: As a site admin, I want to be able to manage any or all sales ads, including creating, editing, and deleting them if necessary.
+    **_Tasks:_**
+
+      - Design and implement search functionality to allow users to search for textbooks.
+      - Implement backend logic to process a given query and retrieve the relevant sales ads from DB.
+      - Display results to user.
+
+6. **View Sales Ad Details**: As a buyer, I want to be able to view the details of a sales ad, including the book title, author, price, description and location of the seller.
+
+    **_Tasks:_**
+
+      - Create a template to display the details of a sales ad.
+      - Retrieve the sales ad details from DB.
+      - Design and implement the UI to present the sales ad details to the user.
+
+7. **Contact Seller**: As a buyer, I want to be able to contact the seller directly to arrange a meet up, exchange shipping addresses or negotiate the price.
+
+    **_Tasks:_**
+
+      - Implement a communication feature to enable buyers to contact sellers along with an inbox where users can access their convos.
+      - Design and implement the UI for initiating conversations and converse with sellers.
+      - Implement frontend and backend logic to handle the sending, receiving and displaying of messages between buyers and sellers.
+
+8. **Manage Sales Ads**: As a site admin, I want to be able to manage any or all sales ads, including creating, editing, and deleting them if necessary.
+
+    **_Tasks:_**
+
+      - Create a superuser.
+      - Update the admin panel to make it easier to manage sales ads.
 
 ## 2. Study Group Feature
 
@@ -168,13 +215,39 @@ This section describes the Study Group feature on the QuickLit website. It enabl
 
 1. **Start a Study Group**: As a user, I want to be able to create a study group for a specific course, project or subject and interact with multiple users simultaniously.
 
+    **_Tasks:_**
+
+      - Design and implement the form for users to create study groups.
+      - Create a DB model to store study group information (members, group name etc.).
+      - Implement the frontend and backend logic to handle the creation of a new study group and save it to the database.
+      - Implement fthe frontend and backend logic to both send and recieve messages in real time.
+
 2. **Delete Study Groups**: As a user, I want to be able to delete a study group after it has expired its usefullness.
+
+    **_Tasks:_**
+
+      - Add a delete group button and delete functionality to the study group page.
+      - Implement the frontend and backend logic to delete the study group from DB.
 
 3. **Add new users to a Study Group**: As a user, I want to be able to add a new member to the study group.
 
-4. **Post Messages and Discussions**: As a user, I want to be able to post messages and engage in discussions within a study group.
+    **_Tasks:_**
+
+      - Design and implement a UI to allow users to add new members to a study group.
+      - Implement the frontend and backend logic to handle the addition of new members to the study group.
+
+4. **Post Messages and have Discussions**: As a user, I want to be able to post messages and engage in discussions within a study group.
+
+    **_Tasks:_**
+
+      - Design and implement a messaging or discussion feature within study groups.
+      - Implement the frontend and backend logic to handle the posting and retrieval of messages within a study group.
 
 5. **Receive Notifications**: As a user, I want to be able to receive notifications about new study group messages.
+
+    **_Tasks:_**
+
+      - Implement a notification system in the inbox to notify users about new study group messages.
 
 # Testing
 Testing is an essential part of ensuring the functionality and stability of a Django project. As of now only manual testing has been performed, even though it is recommended to also incorporate automated tests for more comprehensive coverage. Here are the tests that have been conducted so far:
